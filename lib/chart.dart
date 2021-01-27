@@ -1,5 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class Chart extends StatelessWidget {
   final List<SensorValue> _data;
@@ -8,6 +9,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // debugPrint('movieTitle: _' + this._data.toString());
     return new charts.TimeSeriesChart([
       charts.Series<SensorValue, DateTime>(
         id: 'Values',
@@ -33,4 +35,12 @@ class SensorValue {
   final double value;
 
   SensorValue(this.time, this.value);
+
+  List<String> convertToString(){
+    List result = [];
+    result.add(value.toString());
+    result.add(time.toString());
+    return result;
+  }
+
 }

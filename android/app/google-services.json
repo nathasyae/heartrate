@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "234686114043",
+    "project_id": "heartrate-949e7",
+    "storage_bucket": "heartrate-949e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234686114043:android:f9b57cfc34c53d9226a85e",
+        "android_client_info": {
+          "package_name": "com.example.heartrate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234686114043-uvnhtcbt0u6th3r6743pjrkd67maifq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRpiID2DuQwQevS25H_aB0fqUqN05hcmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234686114043-uvnhtcbt0u6th3r6743pjrkd67maifq3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

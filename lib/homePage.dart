@@ -2,6 +2,9 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
 import 'chart.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,6 +20,8 @@ class HomePageView extends State<HomePage> {
   CameraController _controller;
   double _alpha = 0.3;
   int _bpm = 0;
+  List<dynamic> _report = [];
+  int counter=0;
 
   _toggle() {
     _initController().then((onValue) {
@@ -35,8 +40,29 @@ class HomePageView extends State<HomePage> {
     setState(() {
       _toggled = false;
       _processing = false;
+      counter+=1;
+      _write(_report.toString(),counter);
+      createRecord(_report.toString());
+      debugPrint('report: ' + _report.toString());
     });
   }
+
+  _write(String text, int counter) async {
+    final Directory directory = await getApplicationDocumentsDirectory();
+    final File file = File('${directory.path}/report'+counter.toString()+'.txt');
+    await file.writeAsString(text);
+    debugPrint('export success to ' + '${directory.path}');
+  }
+
+  final databaseReference = Firestore.instance;
+  void createRecord(data) async {
+    DocumentReference ref = await databaseReference.collection("history")
+        .add({
+      'array': data,
+    });
+    print(ref.documentID);
+  }
+
 
   Future<void> _initController() async {
     try {
@@ -95,7 +121,6 @@ class HomePageView extends State<HomePage> {
       if (_counter > 0) {
         _bpm = _bpm / _counter;
         setState(() {
-          // _bpm = (1 - _alpha) * _bpm + _alpha * _bpm;
           this._bpm = ((1 - _alpha) * _bpm + _alpha * _bpm).toInt();
         });
       }
@@ -112,6 +137,7 @@ class HomePageView extends State<HomePage> {
     }
     setState(() {
       _data.add(SensorValue(DateTime.now(), _avg));
+      _report.add([DateTime.now().toString(), _avg.toString()]);
     });
     Future.delayed(Duration(milliseconds: 1000 ~/ 30)).then((onValue) {
       setState(() {
