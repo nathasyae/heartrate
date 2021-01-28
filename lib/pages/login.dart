@@ -3,6 +3,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../BottomNavPage.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -84,6 +86,10 @@ class _LoginState extends State<Login> {
                         setState(() {
                           showProgress = false;
                         });
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BottomNavPage()),
+                        );
                       }
                     } catch (e) {}
                   },
