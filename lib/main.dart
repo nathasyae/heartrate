@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
+import 'package:heartrate/pages/measuring.dart';
 import 'package:heartrate/pages/register.dart';
 import 'package:heartrate/pages/result.dart';
 import 'package:heartrate/style.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
+      home: HomePage(),
       // home: BottomNavPage(),
       // home: Result(),
     );
