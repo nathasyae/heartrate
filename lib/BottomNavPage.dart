@@ -30,7 +30,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Widget build(BuildContext context) {
     final _listPage = <Widget>[
       Text('Program'),
-      checkHeartRate(),
+      checkHeartRate(useruid: widget.useruid),
       // Text('Check'),
       Profile(uid: widget.useruid, email: widget.email),
     ];

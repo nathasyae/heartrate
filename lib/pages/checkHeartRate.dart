@@ -19,6 +19,10 @@ import 'package:heartrate/pages/symptomps.dart';
 
 
 class checkHeartRate extends StatefulWidget {
+  final String useruid;
+
+  const checkHeartRate({this.useruid});
+
   @override
   checkHeartRateView createState() {
     return checkHeartRateView();
@@ -144,7 +148,7 @@ class checkHeartRateView extends State<checkHeartRate> {
 
     DocumentReference ref = await databaseReference.collection("log")
         .add({
-      'uiduser': userUid,
+      'uiduser': widget.useruid,
       'avgBPM': log1.avgBPM.toInt(),
       'heartCondition': log1.heartCondition,
     });
