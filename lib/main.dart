@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
+import 'package:heartrate/pages/login.dart';
 import 'package:heartrate/pages/measuring.dart';
 import 'package:heartrate/pages/programs.dart';
 import 'package:heartrate/pages/register.dart';
@@ -8,7 +9,9 @@ import 'package:heartrate/pages/result.dart';
 import 'package:flutter/material.dart';
 
 import 'BottomNavPage.dart';
+import 'auth.dart';
 import 'homePage.dart';
+import 'rootPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,7 +34,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
+      // home: Register(),
+      home: new Login(auth: new Auth()),
       // home: Measuring(),
     );
   }

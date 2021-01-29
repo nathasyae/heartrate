@@ -5,8 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../BottomNavPage.dart';
+import '../auth.dart';
 
 class Login extends StatefulWidget {
+  final BaseAuth auth;
+  final VoidCallback onSignedIn;
+
+  const Login({this.auth, this.onSignedIn});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -86,6 +92,9 @@ class _LoginState extends State<Login> {
                   try {
                     final newUser = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
+
+                    widget.onSignedIn();
+
                     print('useruid ' + newUser.user.uid.toString());
                     useruid = newUser.user.uid.toString();
                     emailLoggedin = newUser.user.email;
@@ -94,11 +103,14 @@ class _LoginState extends State<Login> {
                       setState(() {
                         showProgress = false;
                       });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNavPage(useruid: useruid, email: emailLoggedin,)),
-                      );
+
+                      // Navigator.push(
+                        // context,
+                        // MaterialPageRoute(builder: (context) => BottomNavPage(useruid: useruid, email: emailLoggedin,)),
+                        // MaterialPageRoute(builder: (context) => BottomNavPage()),
+                      // );
                     }
+                    widget.onSignedIn();
                   } catch (e) {}
                 },
                 child: Text(
