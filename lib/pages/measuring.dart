@@ -22,11 +22,24 @@ class MeasuringView extends State<Measuring> {
                     Text("Measuring...",
                         style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
                     SizedBox(height: 20),
-                    Text("1. Put your phone on the table with the camera lens facing upward.",
-                        style: mainTheme.textTheme.bodyText1),
+                    Image(image: AssetImage('assets/images/instruction1.png')),
+                    Row(
+                      children: [
+                        Image(image: AssetImage('assets/images/1.png')),
+                        Text("Put your phone on the table with the camera lens facing upward.",
+                            style: mainTheme.textTheme.bodyText1),
+                      ],
+                    ),
                     SizedBox(height: 20),
-                    Text("2. Place your finger on the camera lens, keep relax, and wait until the flash turned off.",
-                        style: mainTheme.textTheme.bodyText2),
+                    Image(image: AssetImage('assets/images/instruction2.png')),
+                    Row(
+                      children: [
+                        Image(image: AssetImage('assets/images/2.png')),
+                        Text("2. Place your finger on the camera lens, keep relax, and wait until the flash turned off.",
+                            style: mainTheme.textTheme.bodyText1),
+                      ],
+                    ),
+
                     FlatButton(
                         minWidth: 250,
                         color: Colors.red,

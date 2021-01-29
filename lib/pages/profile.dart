@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:heartrate/pages/register.dart';
+import 'package:intl/intl.dart';
 
 class Profile extends StatefulWidget {
   final String uid;
@@ -18,8 +19,9 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   bool isLoad = false;
-
+  DateTime retrievedDateTime;
   FirebaseAuth auth = FirebaseAuth.instance;
+  String stringDateTime = '';
 
   signOut() async {
     await auth.signOut();
@@ -46,6 +48,9 @@ class _ProfileState extends State<Profile> {
               children: [
                 Icon(Icons.person, size: 100),
                 Text(widget.email),
+                Divider(
+                  color: Colors.grey,
+                ),
                 SizedBox(height:10),
                 FlatButton(
                   minWidth: 200,
@@ -76,7 +81,13 @@ class _ProfileState extends State<Profile> {
                 SizedBox(height:5),
                 Text("Daily goals achieved this week"),
                 SizedBox(height:30),
+                Divider(
+                  color: Colors.grey,
+                ),
                 Text("Health Check Record", style: TextStyle(fontSize: 24.0)),
+                Divider(
+                  color: Colors.grey,
+                ),
                 SizedBox(height:10),
                 StreamBuilder(
                   stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: widget.uid).snapshots(),
@@ -90,6 +101,14 @@ class _ProfileState extends State<Profile> {
                         itemCount: snapshot.data.documents.length,
                         itemBuilder: (context, index) {
                           DocumentSnapshot ds = snapshot.data.documents[index];
+
+                          retrievedDateTime = ds["dateTime"].toDate();
+                          var formatter = new DateFormat('dd-MM-yyyy hh:mm');
+                          stringDateTime = formatter.format(retrievedDateTime);
+
+                          print('retrieved ' + retrievedDateTime.toString());
+
+                          print('datetime ' + ds['dateTime'].toString());
                           return new Card(
                             child: Padding(
                               padding: const EdgeInsets.all(20),
@@ -98,8 +117,9 @@ class _ProfileState extends State<Profile> {
                                     Column(
                                       children: [
                                       Text(ds["heartCondition"]),
-                                      Text(ds["dateTime"].toDate().toString()),
+                                      Text(stringDateTime, style: TextStyle(fontSize: 14.0)),
                                     ]),
+                                    SizedBox(width: 20),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
@@ -138,17 +158,4 @@ class _ProfileState extends State<Profile> {
     return Firestore.instance.collection('users').document(userId);
   }
 
-  // Future loadFormData() async {
-  //   final DocumentReference document =
-  //   Firestore.instance.collection('log').document(widget.uid);
-  //   await document.get().then((datasnapshot) {
-  //     if (datasnapshot.exists) {
-  //       setState(() {
-  //         dataUser = db.userDataFromSnapshot(datasnapshot);
-  //         email = datasnapshot.data['email'];
-  //         // isLoadDone = true;
-  //       });
-  //     }
-  //   });
-  // }
 }

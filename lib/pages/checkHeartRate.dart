@@ -33,6 +33,7 @@ class checkHeartRate extends StatefulWidget {
 
 class checkHeartRateView extends State<checkHeartRate> {
 
+  bool isWaitingAsync = false;
   bool _toggled = false;
   bool _processing = false;
   List<SensorValue> _data = [];
@@ -91,6 +92,7 @@ class checkHeartRateView extends State<checkHeartRate> {
     _disposeController();
     Wakelock.disable();
     setState(() async {
+      isWaitingAsync = true;
       _processing = false;
       counter+=1;
       _write(_report.toString(),counter);
@@ -289,26 +291,30 @@ class checkHeartRateView extends State<checkHeartRate> {
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
             ),
             SizedBox(height: 20),
-            IconButton(
-              icon: Icon(Icons.favorite),
-              color: Colors.red,
-              iconSize: 128,
-              onPressed: () {
-                setState(() {
-                  _toggle();
-                });
-              }
-            ),
-
+              IconButton(
+                  icon: Image(image: AssetImage('assets/images/heartbutton.png')),
+                  color: Colors.red,
+                  iconSize: 200,
+                  onPressed: () {
+                    setState(() {
+                      _toggle();
+                    });
+                  }
+              ),
         ]
         ) :
         Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text("Measuring...",
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-              Text(_current.toString(),
-                  style: TextStyle(fontSize: 24.0)),
+            children: <Widget>[ isWaitingAsync ?
+            new CircularProgressIndicator() :
+            Column(
+                children: [
+                  Text("Measuring...",
+                      style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                  Text(_current.toString(),
+                      style: TextStyle(fontSize: 24.0)),
+                ]
+              ),
               SizedBox(height: 20),
               Text("1. Put your phone on the table with the camera lens facing upward.",
                   style: mainTheme.textTheme.bodyText1),

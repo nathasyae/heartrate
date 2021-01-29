@@ -31,8 +31,10 @@ class SymptompsState extends State<Symptomps> {
           margin: const EdgeInsets.all(30),
         child: Column(
           children: [
+            SizedBox(
+                height:30),
             Text("Choose the symptoms you have:",
-                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
+                style: TextStyle(fontSize: 24.0)),
             ListView(
               shrinkWrap: true,
               children: values.keys.map((String key) {

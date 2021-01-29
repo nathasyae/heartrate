@@ -73,7 +73,9 @@ class ResultView extends State<Result> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.stacked_line_chart, size:50, color: Colors.red),
+                      ImageIcon(
+                        AssetImage("assets/img/heartbeat.png"),
+                      ),
                       Text(widget.heartCondition,
                           style: TextStyle(fontSize: 25)),
                     ],

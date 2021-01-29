@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/register.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,7 +44,7 @@ class _LoginState extends State<Login> {
                   decoration: InputDecoration(
                       hintText: "Enter your Email",
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(32.0)))),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)))),
                 ),
               ),
               SizedBox(
@@ -60,14 +61,14 @@ class _LoginState extends State<Login> {
                   decoration: InputDecoration(
                       hintText: "Enter your Password",
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(32.0)))),
+                          borderRadius: BorderRadius.all(Radius.circular(5.0)))),
                 ),
               ),
               SizedBox(
                 height: 20.0,
               ),
               FlatButton(
-                minWidth: 250,
+                minWidth: 300,
                 color: Colors.red,
                 textColor: Colors.white,
                 disabledColor: Colors.grey,
@@ -112,6 +113,19 @@ class _LoginState extends State<Login> {
                   style: TextStyle(fontSize: 16.0),
                 ),
               ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Register()),
+                  );
+                },
+                child: Text(
+                  "Don't have account yet? Register Now",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              )
             ],
           ),
         ),
