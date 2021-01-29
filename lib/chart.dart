@@ -1,6 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 
 class Chart extends StatelessWidget {
   final List<SensorValue> _data;

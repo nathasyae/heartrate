@@ -1,15 +1,15 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:heartrate/components/button.dart';
-import 'package:wakelock/wakelock.dart';
-// import 'chart.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:heartrate/style.dart';
 import 'package:flutter/material.dart';
 
+final Firestore _db = Firestore.instance;
+
 class Result extends StatefulWidget {
+  final String avgBPM, heartCondition;
+
+  const Result({Key key, this.avgBPM, this.heartCondition}) : super(key: key);
+
   @override
   ResultView createState() {
     return ResultView();
@@ -17,6 +17,29 @@ class Result extends StatefulWidget {
 }
 
 class ResultView extends State<Result> {
+  String avgBPM, heartCondition;
+  bool isLoadDone;
+
+  @override
+  void initState() {
+    super.initState();
+    // loadData(uidLog);
+  }
+
+  Future<void> loadData(String uid) async {
+    final DocumentReference document =
+    Firestore.instance.collection('log').document(uid);
+    await document.get().then((datasnapshot) {
+      if (datasnapshot.exists) {
+        setState(() {
+          avgBPM = datasnapshot.data['avgBPM'].toString();
+          heartCondition = datasnapshot.data['heartCondition'];
+
+          isLoadDone = true;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +58,7 @@ class ResultView extends State<Result> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.favorite, size:50, color: Colors.red,),
-                      Text("72",
+                      Text(widget.avgBPM,
                           style: TextStyle(fontSize: 50.0)),
                       Text(" BPM",
                           style: Theme.of(context).textTheme.bodyText1),
@@ -51,18 +74,8 @@ class ResultView extends State<Result> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.stacked_line_chart, size:50, color: Colors.red),
-                      // Container(
-                      //   child: Image(
-                      //     image: AssetImage(
-                      //       'assets/heartbeat.png',
-                      //     ),
-                      //     fit: BoxFit.cover,
-                      //   ),
-                      //   height: 24,
-                      //   width: 24,
-                      // ),
-                      Text("Normal",
-                          style: TextStyle(fontSize: 40.0)),
+                      Text(widget.heartCondition,
+                          style: TextStyle(fontSize: 25)),
                     ],
                   ),
                   SizedBox(height: 80),
@@ -74,36 +87,18 @@ class ResultView extends State<Result> {
                     disabledColor: Colors.grey,
                     disabledTextColor: Colors.black,
                     padding: EdgeInsets.all(10.0),
-                    splashColor: secondaryRed,
+                    // splashColor: secondaryRed,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                         side: BorderSide(color: Colors.red)
                     ),
                     onPressed: () {},
                     child: Text(
-                      "See Advice",
+                      "See Daily Health Plan",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
-                  FlatButton(
-                    minWidth: 250,
-                    color: Theme.of(context).backgroundColor,
-                    textColor: Colors.black,
-                    disabledColor: Colors.grey,
-                    disabledTextColor: Colors.black,
-                    padding: EdgeInsets.all(10.0),
-                    splashColor: secondaryRed,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        side: BorderSide(color: Colors.black)
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      "See Full Report",
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  ),
-                  // Button(title: "See Full Report", onPressed: doNothing(), isPrimary: false)
+                                    // Button(title: "See Full Report", onPressed: doNothing(), isPrimary: false)
                 ]
             )
         )

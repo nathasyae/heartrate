@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:wakelock/wakelock.dart';
@@ -46,7 +45,8 @@ class HomePageView extends State<HomePage> {
       _processing = false;
       counter+=1;
       _write(_report.toString(),counter);
-      postJson(_report.toString(), counter);
+      // postJson(_report.toString(), counter);
+      createLog(_report.toString(), counter.toString());
       createRecord(_report.toString());
       debugPrint('report: ' + _report.toString());
     });
@@ -54,7 +54,7 @@ class HomePageView extends State<HomePage> {
 
   Future<http.Response> postJson(String data, int counter) {
     return http.post(
-      'https://jsonplaceholder.typicode.com/testheartrate',
+      'https://cardio-watch-functions.azurewebsites.net/api/PPGProcessor',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -63,6 +63,30 @@ class HomePageView extends State<HomePage> {
         'array': data,
       }),
     );
+  }
+
+  Future<http.Response> createLog(String data, String counter) async {
+    final http.Response response = await http.post(
+      'https://cardio-watch-functions.azurewebsites.net/api/PPGProcessor',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'id': counter,
+        'array': data,
+      }),
+    );
+    if (response.statusCode == 200) {
+      debugPrint('RESJSON success');
+      debugPrint('RESJSON ' + response.toString());
+      // Log log1 = Log.fromJson(jsonDecode(response.body));
+      // debugPrint('RESJSON '+ log1.avgBPM.toString() + log1.heartCondition);
+      return response;
+      // return Log.fromJson(jsonDecode(response.body));
+    } else {
+      debugPrint('RESJSON fail ' +response.statusCode.toString());
+      throw Exception('Failed to load');
+    }
   }
 
   _write(String text, int counter) async {

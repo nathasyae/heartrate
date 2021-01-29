@@ -13,6 +13,8 @@ class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
   bool showProgress = false;
   String email, password;
+  String useruid;
+  String emailLoggedin;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,9 @@ class _LoginState extends State<Login> {
                     try {
                       final newUser = await _auth.signInWithEmailAndPassword(
                           email: email, password: password);
-                      print(newUser.toString());
+                      print('useruid ' + newUser.user.uid.toString());
+                      useruid = newUser.user.uid.toString();
+                      emailLoggedin = newUser.user.email;
                       if (newUser != null) {
                         Fluttertoast.showToast(
                             msg: "Login Successfull",
@@ -88,7 +92,7 @@ class _LoginState extends State<Login> {
                         });
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BottomNavPage()),
+                          MaterialPageRoute(builder: (context) => BottomNavPage(useruid: useruid, email: emailLoggedin,)),
                         );
                       }
                     } catch (e) {}

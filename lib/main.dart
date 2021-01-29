@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/register.dart';
 import 'package:heartrate/pages/result.dart';
-import 'package:heartrate/style.dart';
 import 'package:flutter/material.dart';
 
 import 'BottomNavPage.dart';
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // home: HomePage(),
+      // home: Register(),
       home: Register(),
-      // home: BottomNavPage(),
       // home: Result(),
     );
   }

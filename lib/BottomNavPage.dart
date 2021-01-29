@@ -1,8 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
+import 'package:heartrate/pages/profile.dart';
 
 class BottomNavPage extends StatefulWidget {
+
+  final String useruid;
+  final String email;
+
+  const BottomNavPage({Key key, this.useruid, this.email}) : super(key: key);
+
   @override
   _BottomNavPageState createState() {
     return _BottomNavPageState();
@@ -11,7 +18,7 @@ class BottomNavPage extends StatefulWidget {
 
 class _BottomNavPageState extends State<BottomNavPage> {
 
-  int _selectedTabIndex = 0;
+  int _selectedTabIndex = 1;
 
   void _onNavBarTapped(int index) {
     setState(() {
@@ -25,7 +32,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
       Text('Program'),
       checkHeartRate(),
       // Text('Check'),
-      Text('Profil'),
+      Profile(uid: widget.useruid, email: widget.email),
     ];
 
     final _bottomNavBarItems = <BottomNavigationBarItem>[
