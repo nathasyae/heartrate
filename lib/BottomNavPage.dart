@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/profile.dart';
+import 'package:heartrate/pages/programs.dart';
 
 class BottomNavPage extends StatefulWidget {
 
@@ -29,9 +30,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     final _listPage = <Widget>[
-      Text('Program'),
+      Programs(),
       checkHeartRate(useruid: widget.useruid),
-      // Text('Check'),
       Profile(uid: widget.useruid, email: widget.email),
     ];
 
