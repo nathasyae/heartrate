@@ -79,7 +79,7 @@ class _ProfileState extends State<Profile> {
                 Text("Health Check Record", style: TextStyle(fontSize: 24.0)),
                 SizedBox(height:10),
                 StreamBuilder(
-                  stream: Firestore.instance.collection("log").where('useruid', isEqualTo: widget.uid).snapshots(),
+                  stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: widget.uid).snapshots(),
                   builder: (context, snapshot){
                     if(!snapshot.hasData){
                       return Text('No Data...');
@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile> {
                                     Column(
                                       children: [
                                       Text(ds["heartCondition"]),
-                                        Text('tanggal'),
+                                      Text(ds["dateTime"].toDate().toString()),
                                     ]),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,

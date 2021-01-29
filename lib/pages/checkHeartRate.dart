@@ -1,5 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/invalid.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -56,12 +57,6 @@ class checkHeartRateView extends State<checkHeartRate> {
     // getUserUid();
   }
 
-  // void getUserUid() async {
-  //   FirebaseUser user = await FirebaseAuth.instance.currentUser();
-  //   print(user.uid);
-  //   userUid = user.uid;
-  // }
-
   void startTimer() {
     CountdownTimer countDownTimer = new CountdownTimer(
       new Duration(seconds: _start),
@@ -96,7 +91,6 @@ class checkHeartRateView extends State<checkHeartRate> {
     _disposeController();
     Wakelock.disable();
     setState(() async {
-      _toggled = false;
       _processing = false;
       counter+=1;
       _write(_report.toString(),counter);
@@ -104,6 +98,7 @@ class checkHeartRateView extends State<checkHeartRate> {
       createRecord(_report.toString());
 
       if (isLogCreated){
+        _toggled = false;
         print('DEBUG CHECK ' + avgBPM + heartCondition);
         Navigator.push(
             context,
@@ -116,7 +111,7 @@ class checkHeartRateView extends State<checkHeartRate> {
 
   Future<bool> createLog(String data, String counter) async {
     final http.Response response = await http.post(
-      'http://d96e009a7c02.ngrok.io/api/PPGProcessor',
+      'https://cardio-watch-functions.azurewebsites.net/api/PPGProcessor',
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -135,6 +130,12 @@ class checkHeartRateView extends State<checkHeartRate> {
 
       return isSaved;
 
+    } else if (response.statusCode == 400){
+      debugPrint('RESJSON ' + response.toString());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Invalid()),
+      );
     } else {
       debugPrint('RESJSON fail ' +response.statusCode.toString());
       throw Exception('Failed to load');
@@ -151,6 +152,7 @@ class checkHeartRateView extends State<checkHeartRate> {
       'uiduser': widget.useruid,
       'avgBPM': log1.avgBPM.toInt(),
       'heartCondition': log1.heartCondition,
+      'dateTime' : DateTime.now(),
     });
 
     avgBPM = log1.avgBPM.toInt().toString();

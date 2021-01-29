@@ -3,8 +3,9 @@ class Log{
   String uidUser;
   final double avgBPM;
   final String heartCondition;
+  DateTime dateTime;
 
-  Log({this.uidUser, this.avgBPM, this.heartCondition});
+  Log({this.uidUser, this.avgBPM, this.heartCondition, this.dateTime});
 
   factory Log.fromJson(Map<String, dynamic> json) {
     return Log(

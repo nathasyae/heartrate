@@ -28,8 +28,11 @@ class SymptompsState extends State<Symptomps> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Container(
+          margin: const EdgeInsets.all(30),
         child: Column(
           children: [
+            Text("Choose the symptoms you have:",
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
             ListView(
               shrinkWrap: true,
               children: values.keys.map((String key) {
