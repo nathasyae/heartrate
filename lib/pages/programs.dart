@@ -40,7 +40,10 @@ class ResultView extends State<Programs> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.33), BlendMode.darken),
+                  colorFilter: new ColorFilter.mode(
+                      Colors.black.withOpacity(0.33),
+                      BlendMode.darken
+                  ),
                   image: NetworkImage(
                       "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
                   ),
@@ -78,7 +81,10 @@ class ResultView extends State<Programs> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.33), BlendMode.darken),
+                  colorFilter: new ColorFilter.mode(
+                      Colors.black.withOpacity(0.33),
+                      BlendMode.darken
+                  ),
                   image: NetworkImage(
                       "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
                   ),
@@ -166,7 +172,10 @@ class ResultView extends State<Programs> {
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 fit: BoxFit.cover,
-                                colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.22), BlendMode.darken),
+                                colorFilter: new ColorFilter.mode(
+                                    Colors.black.withOpacity(0.22),
+                                    BlendMode.darken
+                                ),
                                 image: NetworkImage(
                                   // CHANGE IMAGE SRC HERE
                                   "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
@@ -263,7 +272,10 @@ class ResultView extends State<Programs> {
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.22), BlendMode.darken),
+                                  colorFilter: new ColorFilter.mode(
+                                      Colors.black.withOpacity(0.22),
+                                      BlendMode.darken
+                                  ),
                                   image: NetworkImage(
                                     // CHANGE IMAGE SRC HERE
                                       "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
@@ -279,7 +291,8 @@ class ResultView extends State<Programs> {
                                     tileColor: Colors.white,
                                     subtitle: Padding(
                                         padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                        child: Text('Short description about the program will '
+                                        child: Text(
+                                            'Short description about the program will '
                                             'be explained here.')
                                     ),
                                   ),
