@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'dailyroutines.dart';
+
 final Firestore _db = Firestore.instance;
 
 class Result extends StatefulWidget {
@@ -68,7 +70,7 @@ class ResultView extends State<Result> {
                       style: Theme.of(context).textTheme.bodyText1),
 
                   SizedBox(height: 50),
-                  Text("Rythm Analysis",
+                  Text("Rhythm Analysis",
                       style: Theme.of(context).textTheme.headline2),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +83,6 @@ class ResultView extends State<Result> {
                     ],
                   ),
                   SizedBox(height: 80),
-                  // Button(title: "See Advice", onPressed: doNothing(), isPrimary: true),
                   FlatButton(
                     minWidth: 250,
                     color: Colors.red,
@@ -94,7 +95,12 @@ class ResultView extends State<Result> {
                         borderRadius: BorderRadius.circular(5.0),
                         side: BorderSide(color: Colors.red)
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DailyRoutines())
+                      );
+                    },
                     child: Text(
                       "See Daily Health Plan",
                       style: TextStyle(fontSize: 16.0),

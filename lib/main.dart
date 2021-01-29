@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
+import 'package:heartrate/pages/dailyroutines.dart';
 import 'package:heartrate/pages/measuring.dart';
 import 'package:heartrate/pages/programs.dart';
 import 'package:heartrate/pages/register.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
+      home: DailyRoutines(),
+      // home: Register(),
     );
   }
 }
