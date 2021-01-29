@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: DailyRoutines(),
-      // home: Register(),
+      home: Register(),
     );
   }
 }

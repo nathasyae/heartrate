@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:heartrate/components/button.dart';
+import 'package:heartrate/pages/dailyroutines.dart';
 import 'package:wakelock/wakelock.dart';
 // import 'chart.dart';
 import 'package:path_provider/path_provider.dart';
@@ -26,125 +27,26 @@ class ResultView extends State<Programs> {
     double sectionTitleFontSize = 22;
     List<Widget> widgets = [
       Container(
-        child: Card(
-          child: InkWell(
-            splashColor: Colors.white.withAlpha(150),
-            onTap: () {
-              // TO-DO: Put onClickHandlerFuction HERE!
-              //print('Card tapped.');
-            },
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              width: 160,
-              height: 205,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.33),
-                      BlendMode.darken
-                  ),
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
-                  ),
-                ),
-              ),
-              child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                      "Healthy Food Programs",
-                      style: TextStyle(
-                        fontSize: cardTitleFontSize,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      )
-                  )
-              ),
-            ),
-          ),
-        ),
+        // margin: EdgeInsets.all(15),
+        child: Image(image: AssetImage('assets/images/workout_card.png')),
       ),
-      // ======= END OF #2-1st COL=====
-      // ======= #2-2nd COL BEGINS=====
+      SizedBox(width:10),
       Container(
-        child: Card(
-          child: InkWell(
-            splashColor: Colors.white.withAlpha(150),
-            onTap: () {
-              // TO-DO: Put onClickHandlerFuction HERE!
-              //print('Card tapped.');
-            },
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              width: 160,
-              height: 205,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(
-                      Colors.black.withOpacity(0.33),
-                      BlendMode.darken
-                  ),
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
-                  ),
-                ),
-              ),
-              child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                      "Healthy Food Programs",
-                      style: TextStyle(
-                        fontSize: cardTitleFontSize,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      )
-                  )
-              ),
-            ),
-          ),
-        ),
+        // margin: EdgeInsets.all(15),
+        child: Image(image: AssetImage('assets/images/food_card.png')),
       ),
-      // ======= END OF #2-2nd COL=====
-      // ======= #2-2nd COL BEGINS=====
+      SizedBox(width:10),
       Container(
-        child: Card(
-          child: InkWell(
-            splashColor: Colors.white.withAlpha(150),
-            onTap: () {
-              // TO-DO: Put onClickHandlerFuction HERE!
-              //print('Card tapped.');
-            },
-            child: Container(
-              alignment: Alignment.bottomLeft,
-              width: 160,
-              height: 205,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.33), BlendMode.darken),
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
-                  ),
-                ),
-              ),
-              child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text(
-                      "Healthy Food Programs",
-                      style: TextStyle(
-                        fontSize: cardTitleFontSize,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      )
-                  )
-              ),
-            ),
-          ),
-        ),
+        // margin: EdgeInsets.all(15),
+        child: Image(image: AssetImage('assets/images/workout_card.png')),
       ),
-      // ======= END OF #2-2nd COL=====
+      SizedBox(width:10),
+      Container(
+        // margin: EdgeInsets.all(15),
+        child: Image(image: AssetImage('assets/images/food_card.png')),
+      ),
     ];
+
     return Scaffold(
         body: Column(
           children: <Widget>[
@@ -153,65 +55,21 @@ class ResultView extends State<Programs> {
                 child: new ListView(
                   scrollDirection: Axis.vertical, // =================================== ROOT COLUMN BEGINS=====<<<
                   children: <Widget>[
+                    SizedBox(height: 20),
+
                     // ============ #1 CARD BEGINS
+
                     Container(
                       margin: EdgeInsets.all(15),
-                      height: 250,
-                      width: double.maxFinite,
-                      child: Card(
-                        //color: Colors.redAccent[100],
-                        child: InkWell(
-                          splashColor: Colors.white.withAlpha(150),
-                          onTap: () {
-                              // TO-DO: Put onClickHandlerFuction HERE!
-                            //print('Card tapped.');
-                          },
-                          child: Container(
-                            width: 300,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                colorFilter: new ColorFilter.mode(
-                                    Colors.black.withOpacity(0.22),
-                                    BlendMode.darken
-                                ),
-                                image: NetworkImage(
-                                  // CHANGE IMAGE SRC HERE
-                                  "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
-                                ),
-                              )
-                            ),
-                            child: Column(
-                              verticalDirection: VerticalDirection.up,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Container(
-                                  child: ListTile(
-                                    tileColor: Colors.white,
-                                    subtitle: Padding(
-                                      padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                      child: Text('Short description about the program will '
-                                          'be explained here.')
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text('Title of The Program',
-                                    style: TextStyle(
-                                      fontSize: cardTitleFontSize,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white,
-                                    )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ), //ink
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => DailyRoutines())
+                        ),
+                        child: Image(image: AssetImage('assets/images/routine_card.png')),
                       ),
-                    ), // <<<<<============ #1 CARD ENDS HERE
+                    ),
+
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       alignment: Alignment.centerLeft,
@@ -254,65 +112,12 @@ class ResultView extends State<Programs> {
                         ),
                       ),
                     ),
+
                     Container(
                       margin: EdgeInsets.all(15),
-                      height: 250,
-                      width: double.maxFinite,
-                      child: Card(
-                        //color: Colors.redAccent[100],
-                        child: InkWell(
-                          splashColor: Colors.white.withAlpha(150),
-                          onTap: () {
-                            // TO-DO: Put onClickHandlerFuction HERE!
-                            //print('Card tapped.');
-                          },
-                          child: Container(
-                            width: 300,
-                            height: 100,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  colorFilter: new ColorFilter.mode(
-                                      Colors.black.withOpacity(0.22),
-                                      BlendMode.darken
-                                  ),
-                                  image: NetworkImage(
-                                    // CHANGE IMAGE SRC HERE
-                                      "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef"
-                                  ),
-                                )
-                            ),
-                            child: Column(
-                              verticalDirection: VerticalDirection.up,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                Container(
-                                  child: ListTile(
-                                    tileColor: Colors.white,
-                                    subtitle: Padding(
-                                        padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                                        child: Text(
-                                            'Short description about the program will '
-                                            'be explained here.')
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(15, 20, 15, 20),
-                                  alignment: Alignment.bottomLeft,
-                                  child: Text('Title of The Program',
-                                      style: TextStyle(
-                                        fontSize: cardTitleFontSize,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ), //ink
-                      ),
+                      child: Image(image: AssetImage('assets/images/article_card.png')),
                     ),
+
                     // <<<===================#3 ENDS OF ARTICLES SECTION
                   ],
                 ),

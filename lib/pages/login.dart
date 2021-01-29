@@ -90,14 +90,7 @@ class _LoginState extends State<Login> {
                     useruid = newUser.user.uid.toString();
                     emailLoggedin = newUser.user.email;
                     if (newUser != null) {
-                      Fluttertoast.showToast(
-                          msg: "Login Successfull",
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
-                          // timeInSecForIos: 1,
-                          backgroundColor: Colors.red,
-                          textColor: Colors.white,
-                          fontSize: 16.0);
+                      print('login successfull');
                       setState(() {
                         showProgress = false;
                       });
