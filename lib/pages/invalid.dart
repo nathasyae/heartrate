@@ -19,14 +19,19 @@ class InvalidView extends State<Invalid> {
             child: SafeArea(
               child: Center(
                   child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text("Oops.. there’s something wrong",
-                            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-                        SizedBox(height: 20),
+                            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center),
+                        SizedBox(height: 50),
                         Image(image: AssetImage('assets/images/invalid_img.png')),
+                        SizedBox(height: 50),
                         Text("Looks like your finger moves too fast or vibrating. Please try again...",
-                            style: mainTheme.textTheme.bodyText1),
+                            style: mainTheme.textTheme.bodyText1,
+                            textAlign: TextAlign.center),
+                        SizedBox(height: 50),
                         FlatButton(
                           minWidth: 250,
                           color: Colors.red,
@@ -46,7 +51,7 @@ class InvalidView extends State<Invalid> {
                             );
                           },
                           child: Text(
-                            "Back to Home",
+                            "Try Again",
                             style: TextStyle(fontSize: 16.0),
                           ),
                         ),

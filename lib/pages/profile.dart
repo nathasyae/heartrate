@@ -46,11 +46,9 @@ class _ProfileState extends State<Profile> {
           child: SafeArea(
             child: Column(
               children: [
-                Icon(Icons.person, size: 100),
+                Image(image: AssetImage("assets/images/User.png")),
+                SizedBox(height:10),
                 Text(widget.email),
-                Divider(
-                  color: Colors.grey,
-                ),
                 SizedBox(height:10),
                 FlatButton(
                   minWidth: 200,
@@ -75,6 +73,10 @@ class _ProfileState extends State<Profile> {
                     "Logout",
                     style: TextStyle(fontSize: 16.0),
                   ),
+                ),
+                SizedBox(height:10),
+                Divider(
+                  color: Colors.grey,
                 ),
                 SizedBox(height:20),
                 Text("92%", style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold)),

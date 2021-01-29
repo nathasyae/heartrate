@@ -287,6 +287,7 @@ class checkHeartRateView extends State<checkHeartRate> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              SizedBox(height: 50),
             Text("Start Health Check",
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)
             ),
@@ -308,6 +309,8 @@ class checkHeartRateView extends State<checkHeartRate> {
             children: <Widget>[ isWaitingAsync ?
             new CircularProgressIndicator() :
             Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text("Measuring...",
                       style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
@@ -315,12 +318,42 @@ class checkHeartRateView extends State<checkHeartRate> {
                       style: TextStyle(fontSize: 24.0)),
                 ]
               ),
-              SizedBox(height: 20),
-              Text("1. Put your phone on the table with the camera lens facing upward.",
-                  style: mainTheme.textTheme.bodyText1),
-              SizedBox(height: 20),
-              Text("2. Place your finger on the camera lens, keep relax, and wait until the flash turned off.",
-                  style: mainTheme.textTheme.bodyText2),
+              ImageIcon(
+                AssetImage('assets/images/instruction1.png'),
+                size: 200,
+              ),
+              Row(
+                children: [
+                  ImageIcon(
+                  AssetImage('assets/images/1.png'),
+                    size: 60,
+                  ),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Text("Put your phone on the table with the camera lens facing upward.",
+                      style: mainTheme.textTheme.bodyText1),),
+                ],
+              ),
+              SizedBox(height: 30),
+              ImageIcon(
+                AssetImage('assets/images/instruction2.png'),
+                size: 150,
+              ),
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  ImageIcon(
+                  AssetImage('assets/images/2.png'),
+                    size: 60,
+                  ),
+                  SizedBox(width: 20),
+                  Expanded(
+                    child:
+                    Text("Place your finger on the camera lens, keep relax, and wait until the flash turned off.",
+                        style: mainTheme.textTheme.bodyText1),
+                  ),
+                ],
+              ),
 
             ]
         )

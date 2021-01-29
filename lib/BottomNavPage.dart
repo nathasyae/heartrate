@@ -37,15 +37,17 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
     final _bottomNavBarItems = <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Program',
+        icon: ImageIcon(
+            AssetImage("assets/images/runnning icon.png")),
+        label: 'Routines',
       ),
       BottomNavigationBarItem(
         icon: Icon(Icons.favorite),
         label: 'Check',
       ),
       BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: ImageIcon(
+            AssetImage("assets/images/User.png")),
           label: 'Profile'
       ),
     ];
