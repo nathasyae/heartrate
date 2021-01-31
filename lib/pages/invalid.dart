@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/BottomNavPage.dart';
+import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/result.dart';
 import 'package:heartrate/style.dart';
 
@@ -45,9 +46,10 @@ class InvalidView extends State<Invalid> {
                               side: BorderSide(color: Colors.red)
                           ),
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => BottomNavPage())
+                                // MaterialPageRoute(builder: (context) => BottomNavPage())
+                                MaterialPageRoute(builder: (context) => checkHeartRate(useruid:'4LuhSXvV9MMJJA3i3ocWbZNTCVn2'))
                             );
                           },
                           child: Text(

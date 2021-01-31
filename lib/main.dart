@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'BottomNavPage.dart';
 import 'homePage.dart';
+import 'app.dart';
 
 void main() {
   runApp(MyApp());
@@ -31,8 +32,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
-      // home: Measuring(),
+      // home: Register(),
+      home: App(),
     );
   }
 }

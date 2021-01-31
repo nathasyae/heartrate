@@ -55,7 +55,6 @@ class checkHeartRateView extends State<checkHeartRate> {
   @override
   initState() {
     super.initState();
-    // getUserUid();
   }
 
   void startTimer() {
@@ -93,6 +92,7 @@ class checkHeartRateView extends State<checkHeartRate> {
   }
 
   _untoggle() async {
+    // bool isLogCreated = false;
     _disposeController();
     Wakelock.disable();
     setState(() async {
@@ -102,15 +102,24 @@ class checkHeartRateView extends State<checkHeartRate> {
       _write(_report.toString(),counter);
       bool isLogCreated = await createLog(_report.toString(), counter.toString());
       createRecord(_report.toString());
+      isWaitingAsync = false;
+      _toggled = false;
 
       if (isLogCreated){
-        _toggled = false;
         print('DEBUG CHECK ' + avgBPM + heartCondition);
-        Navigator.push(
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => Symptomps(avgBPM: avgBPM, heartCondition: heartCondition))
+        // );
+        Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Symptomps(avgBPM: avgBPM, heartCondition: heartCondition))
-        );
-      }
+            MaterialPageRoute(builder: (context) => Symptomps(avgBPM: avgBPM, heartCondition: heartCondition)))
+            .then((value) {
+              setState(() {
+                // refresh state of Page1
+              });
+        });
+    }
     });
   }
 
@@ -362,6 +371,31 @@ class checkHeartRateView extends State<checkHeartRate> {
                         style: mainTheme.textTheme.bodyText1),
                   ),
                 ],
+              ),
+              FlatButton(
+                minWidth: 200,
+                // color: Colors.red,
+                color: Theme.of(context).backgroundColor,
+                textColor: Colors.black,
+                // textColor: Colors.white,
+                disabledColor: Colors.grey,
+                disabledTextColor: Colors.black,
+                padding: EdgeInsets.all(10.0),
+                // splashColor: secondaryRed,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  side: BorderSide(color: Colors.black),
+                  // side: BorderSide(color: Colors.red)
+                ),
+                onPressed: () {
+                  setState(() {
+                    // refresh
+                  });
+                },
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(fontSize: 16.0),
+                ),
               ),
 
             ]
