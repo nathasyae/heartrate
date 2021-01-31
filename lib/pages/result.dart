@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../BottomNavPage.dart';
 import 'dailyroutines.dart';
 
 final Firestore _db = Firestore.instance;
@@ -102,11 +103,36 @@ class ResultView extends State<Result> {
                       );
                     },
                     child: Text(
-                      "See Daily Health Plan",
+                      "Back to Home",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
-                                    // Button(title: "See Full Report", onPressed: doNothing(), isPrimary: false)
+                  FlatButton(
+                    minWidth: 200,
+                    // color: Colors.red,
+                    color: Theme.of(context).backgroundColor,
+                    textColor: Colors.black,
+                    // textColor: Colors.white,
+                    disabledColor: Colors.grey,
+                    disabledTextColor: Colors.black,
+                    padding: EdgeInsets.all(10.0),
+                    // splashColor: secondaryRed,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      side: BorderSide(color: Colors.black),
+                      // side: BorderSide(color: Colors.red)
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BottomNavPage())
+                    );
+                    },
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ),// Button(title: "See Full Report", onPressed: doNothing(), isPrimary: false)
                 ]
             )
         )

@@ -60,6 +60,15 @@ class _BottomNavPageState extends State<BottomNavPage> {
           child: _listPage[_selectedTabIndex]
       ),
       bottomNavigationBar: _bottomNavBar,
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //
+      //   },
+      //   child: ImageIcon(AssetImage("assets/images/User.png")),
+      //   text
+      //   backgroundColor: Colors.red,
+      // ),
     );
   }
 }

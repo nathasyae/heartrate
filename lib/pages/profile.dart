@@ -20,6 +20,7 @@ class _ProfileState extends State<Profile> {
   String stringDateTime = '';
   String email = 'Loading..';
   String uid;
+  String msg='';
 
   @override
   void initState() {
@@ -84,13 +85,14 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey,
                 ),
                 SizedBox(height:10),
+                Text(msg),
                 isLoading ?
                     new CircularProgressIndicator() :
                 StreamBuilder(
                   stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: uid).snapshots(),
                   builder: (context, snapshot){
                     if(!snapshot.hasData){
-                      return Text('No record yet.');
+                      return CircularProgressIndicator();
                     } else{
                       List<DocumentSnapshot> items = snapshot.data.documents;
                       return new ListView.builder(

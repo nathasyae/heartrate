@@ -82,6 +82,7 @@ class _RegisterState extends State<Register> {
                     final newuser =
                     await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
+                    print('inilah ' + newuser.user.email);
                     if (newuser != null) {
                       Navigator.push(
                         context,
@@ -92,7 +93,9 @@ class _RegisterState extends State<Register> {
                         showProgress = false;
                       });
                     }
-                  } catch (e) {}
+                  } catch (e) {
+                    print('error register ' + e);
+                  }
                 },
                 child: Text(
                   "Register",
