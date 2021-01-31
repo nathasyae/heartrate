@@ -66,7 +66,11 @@ class checkHeartRateView extends State<checkHeartRate> {
 
     var sub = countDownTimer.listen(null);
     sub.onData((duration) {
-      setState(() { _current = _start - duration.elapsed.inSeconds; });
+      if (this.mounted) {
+        setState(() {
+          _current = _start - duration.elapsed.inSeconds;
+        });
+      }
     });
 
     sub.onDone(() {
@@ -140,6 +144,10 @@ class checkHeartRateView extends State<checkHeartRate> {
       );
     } else {
       debugPrint('RESJSON fail ' +response.statusCode.toString());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Invalid()),
+      );
       throw Exception('Failed to load');
     }
   }
@@ -312,6 +320,7 @@ class checkHeartRateView extends State<checkHeartRate> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  SizedBox(height: 50),
                   Text("Measuring...",
                       style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
                   Text(_current.toString(),
@@ -320,7 +329,7 @@ class checkHeartRateView extends State<checkHeartRate> {
               ),
               ImageIcon(
                 AssetImage('assets/images/instruction1.png'),
-                size: 200,
+                size: 150,
               ),
               Row(
                 children: [
@@ -337,7 +346,7 @@ class checkHeartRateView extends State<checkHeartRate> {
               SizedBox(height: 30),
               ImageIcon(
                 AssetImage('assets/images/instruction2.png'),
-                size: 150,
+                size: 100,
               ),
               SizedBox(height: 30),
               Row(

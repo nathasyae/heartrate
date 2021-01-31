@@ -29,11 +29,13 @@ class SymptompsState extends State<Symptomps> {
     return new Scaffold(
       body: Container(
           margin: const EdgeInsets.all(30),
+        child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
             SizedBox(
                 height:30),
-            Text("Choose the symptoms you have:",
+            Text("Choose symptoms that you have:",
                 style: TextStyle(fontSize: 24.0)),
             ListView(
               shrinkWrap: true,
@@ -76,6 +78,7 @@ class SymptompsState extends State<Symptomps> {
             ),
           ],
         )
+      )
       )
     );
   }

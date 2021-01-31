@@ -31,6 +31,7 @@ class ResultView extends State<DailyRoutines> {
   Widget build(BuildContext context) {
     double cardTitleFontSize = 24;
     double sectionTitleFontSize = 22;
+    print('daily');
 
     return Scaffold(
       body: Column(
@@ -143,7 +144,6 @@ class ResultView extends State<DailyRoutines> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavPage(),
     );
   }
 

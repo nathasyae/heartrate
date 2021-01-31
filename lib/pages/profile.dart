@@ -95,7 +95,7 @@ class _ProfileState extends State<Profile> {
                   stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: widget.uid).snapshots(),
                   builder: (context, snapshot){
                     if(!snapshot.hasData){
-                      return Text('No Data...');
+                      return Text('No record yet.');
                     } else{
                       List<DocumentSnapshot> items = snapshot.data.documents;
                       return new ListView.builder(
