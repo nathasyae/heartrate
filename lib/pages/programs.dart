@@ -55,7 +55,7 @@ class ResultView extends State<Programs> {
                 child: new ListView(
                   scrollDirection: Axis.vertical, // =================================== ROOT COLUMN BEGINS=====<<<
                   children: <Widget>[
-                    SizedBox(height: 20),
+                    SizedBox(height: 50),
 
                     // ============ #1 CARD BEGINS
 

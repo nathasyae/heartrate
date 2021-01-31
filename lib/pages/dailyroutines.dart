@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:heartrate/BottomNavPage.dart';
 import 'package:heartrate/components/button.dart';
 import 'package:wakelock/wakelock.dart';
 // import 'chart.dart';
@@ -142,6 +143,7 @@ class ResultView extends State<DailyRoutines> {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavPage(),
     );
   }
 
