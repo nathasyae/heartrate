@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                       });
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BottomNavPage(useruid: useruid, email: emailLoggedin,)),
+                        MaterialPageRoute(builder: (context) => BottomNavPage()),
                       );
                     }
                   } catch (e) {}

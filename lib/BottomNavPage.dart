@@ -6,11 +6,6 @@ import 'package:heartrate/pages/programs.dart';
 
 class BottomNavPage extends StatefulWidget {
 
-  final String useruid;
-  final String email;
-
-  const BottomNavPage({Key key, this.useruid, this.email}) : super(key: key);
-
   @override
   _BottomNavPageState createState() {
     return _BottomNavPageState();
@@ -31,8 +26,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
   Widget build(BuildContext context) {
     final _listPage = <Widget>[
       Programs(),
-      checkHeartRate(useruid: widget.useruid),
-      Profile(uid: widget.useruid, email: widget.email),
+      checkHeartRate(),
+      Profile(),
     ];
 
     final _bottomNavBarItems = <BottomNavigationBarItem>[

@@ -4,6 +4,7 @@ import 'package:heartrate/pages/invalid.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heartrate/style.dart';
 import 'dart:convert';
@@ -20,10 +21,6 @@ import 'package:heartrate/pages/symptomps.dart';
 
 
 class checkHeartRate extends StatefulWidget {
-  final String useruid;
-
-  const checkHeartRate({this.useruid});
-
   @override
   checkHeartRateView createState() {
     return checkHeartRateView();
@@ -49,13 +46,14 @@ class checkHeartRateView extends State<checkHeartRate> {
   bool showResult = false;
   String uidLog = '';
   String userUid = '';
+  String uid = '';
 
   String avgBPM, heartCondition = '';
 
   @override
   initState() {
     super.initState();
-    // getUserUid();
+    getUserUid();
   }
 
   void startTimer() {
@@ -93,6 +91,7 @@ class checkHeartRateView extends State<checkHeartRate> {
   }
 
   _untoggle() async {
+    bool isLogCreated = false;
     _disposeController();
     Wakelock.disable();
     setState(() async {
@@ -100,7 +99,7 @@ class checkHeartRateView extends State<checkHeartRate> {
       _processing = false;
       counter+=1;
       _write(_report.toString(),counter);
-      bool isLogCreated = await createLog(_report.toString(), counter.toString());
+      isLogCreated = await createLog(_report.toString(), counter.toString());
       createRecord(_report.toString());
 
       if (isLogCreated){
@@ -110,12 +109,18 @@ class checkHeartRateView extends State<checkHeartRate> {
             context,
             MaterialPageRoute(builder: (context) => Symptomps(avgBPM: avgBPM, heartCondition: heartCondition))
         );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Invalid()),
+        );
       }
     });
   }
 
-
   Future<bool> createLog(String data, String counter) async {
+    bool isSaved = false;
+
     final http.Response response = await http.post(
       'https://cardio-watch-functions.azurewebsites.net/api/PPGProcessor',
       headers: <String, String>{
@@ -132,34 +137,34 @@ class checkHeartRateView extends State<checkHeartRate> {
       Log log1 = Log.fromJson(jsonDecode(response.body));
       debugPrint('RESJSON '+ log1.avgBPM.toString() + log1.heartCondition);
 
-      bool isSaved = await saveResponseLogToDb(response);
-
-      return isSaved;
+      isSaved = await saveResponseLogToDb(response);
 
     } else if (response.statusCode == 400){
       debugPrint('RESJSON ' + response.toString());
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Invalid()),
-      );
     } else {
       debugPrint('RESJSON fail ' +response.statusCode.toString());
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Invalid()),
-      );
       throw Exception('Failed to load');
     }
+
+    return isSaved;
+
   }
 
+  void getUserUid() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser user = await auth.currentUser();
+    setState(() {
+      uid = user.uid;
+      print('uid checkheart rate: '+ uid);
+    });
+  }
 
   Future<bool> saveResponseLogToDb(http.Response response) async {
-
     Log log1 = Log.fromJson(jsonDecode(response.body));
 
     DocumentReference ref = await databaseReference.collection("log")
         .add({
-      'uiduser': widget.useruid,
+      'uiduser': uid,
       'avgBPM': log1.avgBPM.toInt(),
       'heartCondition': log1.heartCondition,
       'dateTime' : DateTime.now(),

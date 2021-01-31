@@ -6,32 +6,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:heartrate/pages/register.dart';
 import 'package:intl/intl.dart';
 
+import '../auth.dart';
+
 class Profile extends StatefulWidget {
-  final String uid;
-  final String email;
-
-  const Profile(
-      {this.uid, this.email});
-
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  bool isLoad = false;
+  bool isLoading = true;
   DateTime retrievedDateTime;
   FirebaseAuth auth = FirebaseAuth.instance;
   String stringDateTime = '';
-
-  signOut() async {
-    await auth.signOut();
-  }
+  String email = 'Loading..';
+  String uid;
 
   @override
   void initState() {
     super.initState();
-    // loadFormData();
-
+    getData();
   }
 
   @override
@@ -48,7 +41,7 @@ class _ProfileState extends State<Profile> {
               children: [
                 Image(image: AssetImage("assets/images/User.png")),
                 SizedBox(height:10),
-                Text(widget.email),
+                Text(email),
                 SizedBox(height:10),
                 FlatButton(
                   minWidth: 200,
@@ -91,8 +84,10 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey,
                 ),
                 SizedBox(height:10),
+                isLoading ?
+                    new CircularProgressIndicator() :
                 StreamBuilder(
-                  stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: widget.uid).snapshots(),
+                  stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: uid).snapshots(),
                   builder: (context, snapshot){
                     if(!snapshot.hasData){
                       return Text('No record yet.');
@@ -150,14 +145,16 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-
-  void logout() async {
-    await FirebaseAuth.instance.signOut();
+  void signOut() async {
+    await auth.signOut();
   }
 
-  getData() async{
-    String userId = (await FirebaseAuth.instance.currentUser()).uid;
-    return Firestore.instance.collection('users').document(userId);
+  void getData() async {
+    FirebaseUser user = await auth.currentUser();
+    setState(() {
+      uid = user.uid;
+      email = user.email;
+      isLoading = false;
+    });
   }
-
 }

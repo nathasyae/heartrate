@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
@@ -6,15 +7,18 @@ import 'package:heartrate/pages/programs.dart';
 import 'package:heartrate/pages/register.dart';
 import 'package:heartrate/pages/result.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/symptomps.dart';
 
 import 'BottomNavPage.dart';
 import 'homePage.dart';
+import 'models/User.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,8 +35,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
-      // home: Measuring(),
+      // home: firstWidget,
+      home: Symptomps(),
     );
   }
 }
