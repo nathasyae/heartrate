@@ -92,7 +92,9 @@ class _RegisterState extends State<Register> {
                         showProgress = false;
                       });
                     }
-                  } catch (e) {}
+                  } catch (e) {
+
+                  }
                 },
                 child: Text(
                   "Register",

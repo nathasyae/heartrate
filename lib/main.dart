@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/mainbr.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
 import 'package:heartrate/pages/measuring.dart';
@@ -12,19 +13,20 @@ import 'package:heartrate/pages/symptomps.dart';
 import 'BottomNavPage.dart';
 import 'homePage.dart';
 import 'models/User.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PPG',
-      // theme: mainTheme,
+      title: 'CardiWatch',
       theme: ThemeData(
         backgroundColor: const Color(0xF4F4F4),
         fontFamily: 'Roboto',
@@ -35,7 +37,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      home: Register(),
+      home: Home(),
+      // home: Register(),
     );
   }
 }
