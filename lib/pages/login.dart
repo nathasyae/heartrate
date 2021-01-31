@@ -16,6 +16,7 @@ class _LoginState extends State<Login> {
   String email, password;
   String useruid;
   String emailLoggedin;
+  String errormsg='';
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +87,11 @@ class _LoginState extends State<Login> {
                   try {
                     final newUser = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
+
                     print('useruid ' + newUser.user.uid.toString());
                     useruid = newUser.user.uid.toString();
                     emailLoggedin = newUser.user.email;
+
                     if (newUser != null) {
                       print('login successfull');
                       setState(() {
@@ -99,13 +102,19 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(builder: (context) => BottomNavPage()),
                       );
                     }
-                  } catch (e) {}
+                  } catch (e) {
+                      setState(() {
+                        errormsg = 'Invalid email or password';
+                        showProgress = false;
+                    });
+                  }
                 },
                 child: Text(
                   "Login",
                   style: TextStyle(fontSize: 16.0),
                 ),
               ),
+              Text(errormsg, style: TextStyle(fontSize: 16.0)),
               SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
