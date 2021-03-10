@@ -1,7 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/calendarScreen.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
+import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
+import 'package:heartrate/pages/forms/cvdHistory.dart';
+import 'package:heartrate/pages/forms/healthHistory.dart';
+import 'package:heartrate/pages/forms/lifestyleHistory.dart';
+import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'package:heartrate/pages/login.dart';
 import 'package:heartrate/pages/measuring.dart';
 import 'package:heartrate/pages/programs.dart';

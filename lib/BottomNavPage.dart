@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heartrate/pages/calendar.dart';
+import 'package:heartrate/pages/calendarScreen.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/profile.dart';
@@ -27,7 +27,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
   @override
   Widget build(BuildContext context) {
     final _listPage = <Widget>[
-      Calendar(),
+      CalendarScreen(),
       Programs(),
       checkHeartRate(),
       Consultation(),
