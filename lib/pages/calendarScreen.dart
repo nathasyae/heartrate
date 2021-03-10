@@ -1,24 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:heartrate/pages/register.dart';
-import 'package:intl/intl.dart';
+class CalendarScreen extends StatefulWidget {
 
-import '../auth.dart';
-import 'login.dart';
-
-class Calendar extends StatefulWidget {
-  const Calendar({Key key}) : super(key: key);
+  const CalendarScreen({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _CalendarState();
+    return _CalendarScreenState();
   }
 }
 
-class _CalendarState extends State<Calendar> {
+class _CalendarScreenState extends State<CalendarScreen> {
   void _handleNewDate(date) {
     setState(() {
       _selectedDay = date;
@@ -71,6 +64,7 @@ class _CalendarState extends State<Calendar> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             Container(
+              margin: const EdgeInsets.all(30),
               child: Calendar(
                 startOnMonday: true,
                 weekDays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
