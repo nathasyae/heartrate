@@ -103,12 +103,13 @@ class ResultView extends State<Result> {
                       );
                     },
                     child: Text(
-                      "Back to Home",
+                      "See Daily Heart Routine",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
+                  SizedBox(height: 20),
                   FlatButton(
-                    minWidth: 200,
+                    minWidth: 250,
                     // color: Colors.red,
                     color: Theme.of(context).backgroundColor,
                     textColor: Colors.black,
@@ -129,7 +130,7 @@ class ResultView extends State<Result> {
                     );
                     },
                     child: Text(
-                      "Logout",
+                      "Back to Home",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),// Button(title: "See Full Report", onPressed: doNothing(), isPrimary: false)

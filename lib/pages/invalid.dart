@@ -45,7 +45,7 @@ class InvalidView extends State<Invalid> {
                               side: BorderSide(color: Colors.red)
                           ),
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (context) => BottomNavPage())
                             );

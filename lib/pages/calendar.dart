@@ -9,12 +9,12 @@ import 'package:intl/intl.dart';
 import '../auth.dart';
 import 'login.dart';
 
-class Profile extends StatefulWidget {
+class Calendar extends StatefulWidget {
   @override
-  _ProfileState createState() => _ProfileState();
+  _CalendarState createState() => _CalendarState();
 }
 
-class _ProfileState extends State<Profile> {
+class _CalendarState extends State<Calendar> {
   bool isLoading = true;
   DateTime retrievedDateTime;
   FirebaseAuth auth = FirebaseAuth.instance;

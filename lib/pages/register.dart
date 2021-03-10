@@ -12,6 +12,7 @@ class _RegisterState extends State<Register> {
   final _auth = FirebaseAuth.instance;
   bool showProgress = false;
   String email, password;
+  String errormsg ='';
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,11 @@ class _RegisterState extends State<Register> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                child: Image.asset('assets/images/logo-text.png'),
+                width: 200,
+              ),
+              SizedBox(height: 30),
               Text(
                 "Registration Page",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -59,6 +65,8 @@ class _RegisterState extends State<Register> {
                           borderRadius: BorderRadius.all(Radius.circular(5.0)))),
                 ),
               ),
+              SizedBox(height: 10),
+              Text("Password has to be at least 6 characters", style: TextStyle(fontSize: 14)),
               SizedBox(
                 height: 20.0,
               ),
@@ -94,7 +102,11 @@ class _RegisterState extends State<Register> {
                       });
                     }
                   } catch (e) {
-                    print('error register ' + e);
+                    setState(() {
+                      errormsg = 'Please provide correct email and/or password';
+                      showProgress = false;
+                    });
+                    print('error register ' + e.toString());
                   }
                 },
                 child: Text(
@@ -102,6 +114,7 @@ class _RegisterState extends State<Register> {
                   style: TextStyle(fontSize: 16.0),
                 ),
               ),
+              Text(errormsg),
               SizedBox(
                 height: 15.0,
               ),
@@ -112,12 +125,22 @@ class _RegisterState extends State<Register> {
                     MaterialPageRoute(builder: (context) => Login()),
                   );
                 },
-                child: Text(
-                  "Already Registred? Login Now",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-              )
+                child: Text.rich(
+                  TextSpan(
+                    text: 'Already registered? ',
+                    style: TextStyle(
+                        color: Colors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'Login Now',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                          )),
+                    ],
+                  ),
+                )
+              ),
             ],
           ),
         ),

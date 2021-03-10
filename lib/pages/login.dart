@@ -27,6 +27,11 @@ class _LoginState extends State<Login> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Container(
+                child: Image.asset('assets/images/logo-text.png'),
+                width: 200,
+              ),
+              SizedBox(height: 30),
               Text(
                 "Login Page",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -97,7 +102,7 @@ class _LoginState extends State<Login> {
                       setState(() {
                         showProgress = false;
                       });
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => BottomNavPage()),
                       );
@@ -123,11 +128,21 @@ class _LoginState extends State<Login> {
                     MaterialPageRoute(builder: (context) => Register()),
                   );
                 },
-                child: Text(
-                  "Don't have account yet? Register Now",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
-                ),
+                  child: Text.rich(
+                    TextSpan(
+                      text: "Don't have account yet? ",
+                      style: TextStyle(
+                          color: Colors.black),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "Register Now",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ],
+                    ),
+                  )
               )
             ],
           ),
