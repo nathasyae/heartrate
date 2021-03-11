@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/forms/cvdHistory.dart';
 import 'package:heartrate/pages/result.dart';
 
 class HealthHistory extends StatefulWidget {
@@ -23,8 +24,9 @@ class HealthHistoryState extends State<HealthHistory> {
         margin: const EdgeInsets.all(30),
         child:
         Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SizedBox(height:30),
             Text("Do you have any of these health conditions?",
                 style: TextStyle(fontSize: 24.0)),
             Container(
@@ -70,7 +72,9 @@ class HealthHistoryState extends State<HealthHistory> {
                       borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(color: Colors.red)
                   ),
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
                   child: Text(
                     "Previous",
                     style: TextStyle(fontSize: 16.0),
@@ -87,10 +91,10 @@ class HealthHistoryState extends State<HealthHistory> {
                       side: BorderSide(color: Colors.red)
                   ),
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Result(avgBPM: widget.avgBPM, heartCondition: widget.heartCondition)),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CvdHistory()),
+                    );
                   },
                   child: Text(
                     "Next",

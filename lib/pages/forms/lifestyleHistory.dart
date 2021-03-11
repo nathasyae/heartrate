@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heartrate/homePage.dart';
 import 'package:heartrate/pages/result.dart';
 
 class LifestyleHistory extends StatefulWidget {
@@ -37,8 +38,7 @@ class LifestyleHistoryState extends State<LifestyleHistory> {
           children: [
                 SizedBox(height:30),
                 Text("Alcohol and Cigarretes...",
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500)),
                 // 1st question: Drinking Status
                 Text("How about your drinking status?",
                   style: TextStyle(fontSize: 20)),
@@ -188,7 +188,9 @@ class LifestyleHistoryState extends State<LifestyleHistory> {
                         borderRadius: BorderRadius.circular(5.0),
                         side: BorderSide(color: Colors.red)
                     ),
-                    onPressed: null,
+                    onPressed:(){
+                      Navigator.of(context).pop();
+                    },
                     child: Text(
                       "Previous",
                       style: TextStyle(fontSize: 16.0),
@@ -206,9 +208,10 @@ class LifestyleHistoryState extends State<LifestyleHistory> {
                   ),
                   onPressed: () {
                     // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Result(avgBPM: widget.avgBPM, heartCondition: widget.heartCondition)),
+                      // context,
+                      // MaterialPageRoute(builder: (context) => HomePage()),
                     // );
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   },
                   child: Text(
                     "Next",
