@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 
@@ -12,6 +13,10 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseUser user;
+
   void _handleNewDate(date) {
     setState(() {
       _selectedDay = date;
@@ -53,6 +58,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
   @override
   void initState() {
     super.initState();
+    getData();
     _selectedEvents = _events[_selectedDay] ?? [];
   }
 
@@ -108,5 +114,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
         itemCount: _selectedEvents.length,
       ),
     );
+  }
+
+  void getData() async {
+    setState(() async {
+      user = await auth.currentUser();
+
+      // uid = user.uid;
+      // isLoading = false;
+    });
   }
 }
