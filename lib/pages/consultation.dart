@@ -89,11 +89,11 @@ class _ConsultationState extends State<Consultation> {
                           children: [
                             Row(
                               children: [
-                                Icon(IconData(0xea22, fontFamily: 'MaterialIcons'), size: 16, color: Colors.orange),
+                                Icon(const IconData(0xea22, fontFamily: 'MaterialIcons'), size: 16, color: Colors.orange),
                                 Text(data[index]["rating"].toString(),
                                     style: TextStyle(fontSize: 14)),
                                 SizedBox(width: 10),
-                                Icon(IconData(0xe63e, fontFamily: 'MaterialIcons'), size: 16),
+                                Icon(const IconData(0xe63e, fontFamily: 'MaterialIcons'), size: 16),
                                 Text(data[index]["years"].toString() + ' years',
                                     style: TextStyle(fontSize: 14)),
                               ],
