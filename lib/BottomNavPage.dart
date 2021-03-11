@@ -45,9 +45,9 @@ class _BottomNavPageState extends State<BottomNavPage> {
         label: 'Routines',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.favorite),
-        label: 'Check',
-      ),
+          label: 'Check',
+          icon: ImageIcon(AssetImage("assets/images/icon-white.png")),
+        ),
       BottomNavigationBarItem(
           icon: Icon(Icons.message),
           label: 'Consultation'
@@ -60,11 +60,14 @@ class _BottomNavPageState extends State<BottomNavPage> {
     ];
 
     final _bottomNavBar = BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       items: _bottomNavBarItems,
       currentIndex: _selectedTabIndex,
       selectedItemColor: Colors.red,
       unselectedItemColor: Colors.grey,
       onTap: _onNavBarTapped,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
     );
 
     return Scaffold(
@@ -72,15 +75,21 @@ class _BottomNavPageState extends State<BottomNavPage> {
           child: _listPage[_selectedTabIndex]
       ),
       bottomNavigationBar: _bottomNavBar,
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //
-      //   },
-      //   child: ImageIcon(AssetImage("assets/images/User.png")),
-      //   text
-      //   backgroundColor: Colors.red,
-      // ),
-    );
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        height: 60,
+        width: 60,
+        child: FloatingActionButton(
+                elevation: 0,
+              onPressed: () {
+                setState(() {
+                  _selectedTabIndex = 2;
+                });
+              },
+              child: ImageIcon(AssetImage("assets/images/icon-white.png"), size: 30,),
+              backgroundColor: Colors.red,
+      ),
+      ),
+      );
   }
 }
