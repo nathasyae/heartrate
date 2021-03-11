@@ -84,10 +84,10 @@ class PersonalInfoState extends State<PersonalInfo> {
                   onChanged: (meassure) {
                     setState(() {
                       if (meassure == "KG") {
-                        int.parse(_weightController.text).toKilograms(MassUnit.pound);
-                        // _convertLbsToKg();
+                        // int.parse(_weightController.text).toKilograms(MassUnit.pound);
+                        _convertLbsToKg();
                       } else {
-                        // _convertLbsToKg();
+                        _convertLbsToKg();
                       }
                     });
                   },

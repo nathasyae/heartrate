@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/calendarScreen.dart';
+import 'package:heartrate/pages/chat/layout_chat.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
@@ -19,12 +21,14 @@ import 'package:heartrate/pages/symptomps.dart';
 import 'BottomNavPage.dart';
 import 'homePage.dart';
 import 'models/User.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   // This widget is the root of your application.
   @override
@@ -42,8 +46,8 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 16.0),
         ),
       ),
-      // home: Login(),
-      home: PersonalInfo(),
+      home: Login(),
+      // home: ChatScreen(),
     );
   }
 }
