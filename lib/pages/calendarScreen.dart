@@ -29,37 +29,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
   DateTime _selectedDay;
 
   final Map<DateTime, List> _events = {
-    DateTime(2020, 5, 7): [
-      {'name': 'Event A', 'isDone': true},
+    DateTime(2021, 3, 2): [
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '70'},
     ],
-    DateTime(2020, 5, 9): [
-      {'name': 'Event A', 'isDone': true},
-      {'name': 'Event B', 'isDone': true},
+    DateTime(2021, 3, 6): [
+      {'name': 'Arythmia', 'isDone': false, 'bpm': '155'},
     ],
-    DateTime(2020, 5, 10): [
-      {'name': 'Event A', 'isDone': true},
-      {'name': 'Event B', 'isDone': true},
+    DateTime(2021, 3, 11): [
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '70'},
     ],
-    DateTime(2020, 5, 13): [
-      {'name': 'Event A', 'isDone': true},
-      {'name': 'Event B', 'isDone': true},
-      {'name': 'Event C', 'isDone': false},
+    DateTime(2021, 3, 12): [
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '71'},
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '72'},
     ],
-    DateTime(2020, 5, 25): [
-      {'name': 'Event A', 'isDone': true},
-      {'name': 'Event B', 'isDone': true},
-      {'name': 'Event C', 'isDone': false},
-    ],
-    DateTime(2020, 6, 6): [
-      {'name': 'Event A', 'isDone': false},
+    DateTime(2021, 3, 10): [
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '76'},
+      {'name': 'Arythmia', 'isDone': false, 'bpm': '160'},
+      {'name': 'Normal Sinus Rythm', 'isDone': true, 'bpm': '73'},
     ],
   };
 
   @override
   void initState() {
     super.initState();
-    getData();
-    _selectedEvents = _events[_selectedDay] ?? [];
+    // getData();
+    _selectedEvents = _events[_selectedDay] ?? _events[DateTime(2021,3,12)];
   }
 
   @override
@@ -80,9 +74,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 onDateSelected: (date) => _handleNewDate(date),
                 isExpandable: true,
                 eventDoneColor: Colors.green,
-                selectedColor: Colors.pink,
-                todayColor: Colors.yellow,
-                eventColor: Colors.grey,
+                selectedColor: Colors.red,
+                todayColor: Colors.red,
+                eventColor: Colors.orange,
                 dayOfWeekStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w800,
@@ -100,28 +94,59 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Expanded(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) => Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(width: 1.5, color: Colors.black12),
+          // decoration: BoxDecoration(
+          //   border: Border(
+          //     bottom: BorderSide(width: 1.5, color: Colors.black12),
+          //   ),
+          // ),
+          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+          child: Container(
+            margin: EdgeInsets.fromLTRB(30,0,30,0),
+            child: Card(
+                child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                              children: [
+                                Text(_selectedEvents[index]['name'].toString()),
+                                // Text(DateFormat('yyyy-MM-dd').format(_selectedDay).toString(), style: TextStyle(fontSize: 14.0)),
+                              ]),
+                          SizedBox(width: 20),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.favorite, size:10, color: Colors.red),
+                                Text(_selectedEvents[index]['bpm'].toString(),
+                                    style: TextStyle(fontSize: 24.0)),
+                                Text(" BPM",
+                                    style: TextStyle(fontSize: 16.0))
+                              ]
+                          ),
+                        ]
+                    )
+                )
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
-          child: ListTile(
-            title: Text(_selectedEvents[index]['name'].toString()),
-            onTap: () {},
-          ),
+
+          // child: ListTile(
+          //   title: Text(_selectedEvents[index]['name'].toString()),
+          //   onTap: () {},
+
+        // ),
         ),
         itemCount: _selectedEvents.length,
       ),
     );
   }
 
-  void getData() async {
-    setState(() async {
-      user = await auth.currentUser();
-
-      // uid = user.uid;
-      // isLoading = false;
-    });
-  }
+  // void getData() async {
+  //   setState(() async {
+  //     // user = await auth.currentUser();
+  //
+  //     // uid = user.uid;
+  //     // isLoading = false;
+  //   });
+  // }
 }
