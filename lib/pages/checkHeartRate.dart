@@ -278,7 +278,7 @@ class checkHeartRateView extends State<checkHeartRate> {
   }
 
   _disposeController() {
-    _controller.dispose();
+    _controller?.dispose();
     _controller = null;
   }
 

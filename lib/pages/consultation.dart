@@ -54,56 +54,58 @@ class _ConsultationState extends State<Consultation> {
         new ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index){
-
-            return new Card(
-              child:
-              Padding(
-                padding: EdgeInsets.all(20),
+            return InkWell(
+                onTap: ()=>{},
+                child: new Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 child:
-                Column(
-                  children: [
-                    Row(
-                        children: [
-                          CircleAvatar(
-                              radius: 20,
-                              backgroundImage: NetworkImage(data[index]["url"] ?? "https://previews.123rf.com/images/leungchopan/leungchopan1404/leungchopan140401233/27745862-asia-doctor.jpg")),
-                          SizedBox(width: 10),
-                          Column(
-                            children: [
-                              Text('dr. ' + data[index]["name"],
-                                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16)),
-                              Text(data[index]["specialization"]),
-                            ],
-                          ),
-                        ]
-                    ),
-                    SizedBox(height: 10),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(IconData(0xea22, fontFamily: 'MaterialIcons'), size: 16, color: Colors.orange),
-                              Text(data[index]["rating"].toString(),
-                                style: TextStyle(fontSize: 14)),
-                              SizedBox(width: 10),
-                              Icon(IconData(0xe63e, fontFamily: 'MaterialIcons'), size: 16),
-                              Text(data[index]["years"].toString() + ' years',
-                                  style: TextStyle(fontSize: 14)),
-                            ],
-                          ),
-                          Text('\$' + data[index]["price"].toInt().toString(), style: TextStyle(fontWeight: FontWeight.w500)),
-                        ]
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child:
+                  Column(
+                    children: [
+                      Row(
+                          children: [
+                            Container(
+                              child: CircleAvatar(
+                                  radius: 30,
+                                  backgroundImage: NetworkImage(data[index]["url"] ?? "https://previews.123rf.com/images/leungchopan/leungchopan1404/leungchopan140401233/27745862-asia-doctor.jpg")),
+                            ),
+                            SizedBox(width: 10),
+                            Column(
+                              children: [
+                                Text('dr. ' + data[index]["name"],
+                                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
+                                Text(data[index]["specialization"]),
+                              ],
+                            ),
+                          ]
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Icon(IconData(0xea22, fontFamily: 'MaterialIcons'), size: 16, color: Colors.orange),
+                                Text(data[index]["rating"].toString(),
+                                    style: TextStyle(fontSize: 14)),
+                                SizedBox(width: 10),
+                                Icon(IconData(0xe63e, fontFamily: 'MaterialIcons'), size: 16),
+                                Text(data[index]["years"].toString() + ' years',
+                                    style: TextStyle(fontSize: 14)),
+                              ],
+                            ),
+                            Text('\$' + data[index]["price"].toInt().toString(), style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18)),
+                          ]
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
-
-
-            // return new Card(
-            //   child: new Text(data[index]["name"]),
-            // );
           },
         ),
       ),
