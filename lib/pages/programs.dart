@@ -12,6 +12,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heartrate/style.dart';
 import 'package:flutter/material.dart';
 
+import 'materials/readingMaterial.dart';
+
 class Programs extends StatefulWidget {
   @override
   ResultView createState() {
@@ -64,7 +66,9 @@ class ResultView extends State<Programs> {
                       child: GestureDetector(
                         onTap: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => DailyRoutines())
+                            MaterialPageRoute(
+                                settings: RouteSettings(name: "/DailyRoutines"),
+                                builder: (context) => DailyRoutines())
                         ),
                         child: Image(image: AssetImage('assets/images/routine_card.png')),
                       ),
@@ -100,6 +104,7 @@ class ResultView extends State<Programs> {
                         ],
                       ), //<<<<<============ #2 CARD ROW ENDS HERE
                     ),
+
                     // <<<===================#3 ARTICLES SECTION BEGINS HERE
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -115,7 +120,15 @@ class ResultView extends State<Programs> {
 
                     Container(
                       margin: EdgeInsets.all(15),
-                      child: Image(image: AssetImage('assets/images/article_card.png')),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: RouteSettings(name: "/DailyRoutines"),
+                                builder: (context) => ReadingMaterial())
+                        ),
+                        child: Image(image: AssetImage('assets/images/article_card.png')),
+                      ),
                     ),
 
                     // <<<===================#3 ENDS OF ARTICLES SECTION

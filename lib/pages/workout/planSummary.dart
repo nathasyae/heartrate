@@ -12,7 +12,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heartrate/style.dart';
 import 'package:flutter/material.dart';
 
-import 'actionBottomSheet.dart';
 import 'actionDetail.dart';
 import 'finishPage.dart';
 
@@ -67,13 +66,45 @@ class _PlanSummaryState extends State<PlanSummary> {
           backgroundColor: Colors.white,
         ),
         bottomSheet: Container(
-          child: TextButton(
-                child: Text("Stop exercise", style: TextStyle(fontSize: 16.0)),
-                onPressed: () => Navigator.push(
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3) // changes position of shadow
+              ),]
+          ),
+          alignment: Alignment.center,
+            child: TextButton(
+              child: Text("Stop exercise", style: TextStyle(fontSize: 16.0)),
+              onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => FinishPage())
-                ),
-          ),
+              ),
+              style: TextButton.styleFrom(
+                  padding: EdgeInsets.all(10.0),
+                  primary: Colors.white,
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0))),
+            ),
+
+          // child: TextButton(
+          //   child: Text("Finish exercise", style: TextStyle(fontSize: 16.0)),
+          //   onPressed: () => Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => FinishPage())
+          //   ),
+          //   style: TextButton.styleFrom(
+          //       padding: EdgeInsets.all(10.0),
+          //       primary: Colors.white,
+          //       backgroundColor: Colors.green,
+          //       shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(5.0))),
+          // ),
         ),
         body: ListView(
             children: [
