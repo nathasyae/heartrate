@@ -26,7 +26,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
     return Container(
       width: 300.0,
       child: Slider.adaptive(
-          activeColor: Colors.blue[800],
+          activeColor: Colors.red,
           inactiveColor: Colors.grey[350],
           value: position.inSeconds.toDouble(),
           max: musicLength.inSeconds.toDouble(),
@@ -70,6 +70,9 @@ class _AudioMaterialState extends State<AudioMaterial> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Audio Session"), titleTextStyle: TextStyle(color: Colors.black),),
+
       //let's start by creating the main UI of the app
       body: Container(
         width: double.infinity,
@@ -78,8 +81,8 @@ class _AudioMaterialState extends State<AudioMaterial> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.blue[800],
-                Colors.blue[200],
+                Colors.grey,
+                Colors.white,
               ]),
         ),
         child: Padding(
@@ -95,7 +98,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                 Padding(
                   padding: const EdgeInsets.only(left: 12.0),
                   child: Text(
-                    "Music Beats",
+                    "Audio Sessions",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 38.0,
@@ -106,7 +109,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                 Padding(
                   padding: EdgeInsets.only(left: 12.0),
                   child: Text(
-                    "Listen to your favorite Music",
+                    "Your doctor buddy once said",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24.0,
@@ -125,7 +128,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
                         image: DecorationImage(
-                          image: AssetImage("assets/image.jpg"),
+                          image: AssetImage("assets/images/logo.png"),
                         )),
                   ),
                 ),
@@ -135,7 +138,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                 ),
                 Center(
                   child: Text(
-                    "Stargazer",
+                    "Judul podkes",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 32.0,
@@ -203,7 +206,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                                 //here we will add the functionality of the play button
                                 if (!playing) {
                                   //now let's play the song
-                                  cache.play("Stargazer.mp3");
+                                  cache.play("audio/dummy cardiwatch.mp3");
                                   setState(() {
                                     playBtn = Icons.pause;
                                     playing = true;
