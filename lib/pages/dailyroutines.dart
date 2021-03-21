@@ -13,6 +13,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heartrate/style.dart';
 import 'package:flutter/material.dart';
 
+import 'materials/audioMaterial.dart';
+
 class DailyRoutines extends StatefulWidget {
   @override
   ResultView createState() {
@@ -35,6 +37,13 @@ class ResultView extends State<DailyRoutines> {
     print('daily');
 
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text('Daily Routines', style: TextStyle(color: Colors.black),),
+        backgroundColor: Colors.white,
+      ),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -43,7 +52,7 @@ class ResultView extends State<DailyRoutines> {
                 scrollDirection: Axis.vertical, // =================================== ROOT COLUMN BEGINS=====<<<
                 children: <Widget>[
 
-                  SizedBox(height:30),
+                  SizedBox(height: 20),
 
                   // Title 1: Morning
                   Container(
@@ -63,7 +72,8 @@ class ResultView extends State<DailyRoutines> {
                     child: GestureDetector(
                       onTap: () => Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PlanSummary())
+                          MaterialPageRoute(
+                              builder: (context) => PlanSummary())
                       ),
                       child: Image(image: AssetImage('assets/images/7mincard.png')),
                     ),
@@ -84,8 +94,14 @@ class ResultView extends State<DailyRoutines> {
 
                   // CARD 2
                   Container(
-                      // margin: EdgeInsets.all(15),
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AudioMaterial())
+                      ),
                       child: Image(image: AssetImage('assets/images/audio_card.png')),
+                    ),
                   ),
 
                   // CARD 3 : Subscribe
