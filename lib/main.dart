@@ -24,6 +24,8 @@ import 'homePage.dart';
 import 'models/User.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'pages/dailyroutines.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -50,9 +52,23 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.red,
         buttonColor: Colors.red,
 
+        appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.black, //change your color here
+            ),
+            titleTextStyle: TextStyle(color: Colors.black, fontSize: 16),
+            backgroundColor: Colors.white,
+        ),
+
       ),
       home: Login(),
       // home: ResultProVersion(),
-    );
+
+      routes: {
+        // '/DailyRoutines': (context) => DailyRoutines(),
+
+      }
+
+      );
   }
 }
