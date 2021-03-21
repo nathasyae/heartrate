@@ -16,6 +16,7 @@ import 'package:heartrate/pages/programs.dart';
 import 'package:heartrate/pages/register.dart';
 import 'package:heartrate/pages/result.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/resultProVersion.dart';
 import 'package:heartrate/pages/symptomps.dart';
 
 import 'BottomNavPage.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CardiWatch',
-      // theme: mainTheme,
+
       theme: ThemeData(
         backgroundColor: const Color(0xF4F4F4),
         fontFamily: 'Roboto',
@@ -45,9 +46,13 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(fontSize: 18.0),
           bodyText2: TextStyle(fontSize: 16.0),
         ),
+
+        primaryColor: Colors.red,
+        buttonColor: Colors.red,
+
       ),
       home: Login(),
-      // home: ChatScreen(),
+      // home: ResultProVersion(),
     );
   }
 }

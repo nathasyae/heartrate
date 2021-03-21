@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:heartrate/BottomNavPage.dart';
 import 'package:heartrate/components/button.dart';
+import 'package:heartrate/pages/workout/planSummary.dart';
 import 'package:wakelock/wakelock.dart';
 // import 'chart.dart';
 import 'package:path_provider/path_provider.dart';
@@ -49,7 +50,7 @@ class ResultView extends State<DailyRoutines> {
                     margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Morning Exercise Session",
+                      "Exercise Session",
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: sectionTitleFontSize,
@@ -59,27 +60,14 @@ class ResultView extends State<DailyRoutines> {
 
                   // CARD 1: workout
                   Container(
-                    margin: EdgeInsets.all(15),
-                    height: 200,
-                    width: double.maxFinite,
-                    child: Card(
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: values.keys.map((String key) {
-                          return new CheckboxListTile(
-                            title: new Text(key),
-                            value: values[key],
-                            onChanged: (bool value) {
-                              setState(() {
-                                values[key] = value;
-                              });
-                            },
-                          );
-                        }).toList(),
-                      ), //ink
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PlanSummary())
+                      ),
+                      child: Image(image: AssetImage('assets/images/7mincard.png')),
                     ),
                   ),
-
 
                   // Title 2: Audio Session
                   Container(

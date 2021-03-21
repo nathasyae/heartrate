@@ -5,6 +5,7 @@ import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/profile.dart';
 import 'package:heartrate/pages/programs.dart';
+import 'package:heartrate/pages/resultProVersion.dart';
 
 class BottomNavPage extends StatefulWidget {
 
@@ -30,7 +31,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
       CalendarScreen(),
       Programs(),
       checkHeartRate(),
-      Consultation(),
+      // Consultation(),
+      ResultProVersion(),
       Profile(),
     ];
 
