@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/programs.dart';
 
@@ -61,25 +62,20 @@ class ResultProVersion extends StatelessWidget {
                         thickness: 1,
                         width: 30,
                         color: Colors.grey),
-                    Column(
-                      children: [
-                        Text("Heart Rythm", style: TextStyle(fontSize: 18)),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('79%', style: TextStyle(color: Colors.black, fontSize: 40.0, fontWeight: FontWeight.bold),),
-                            Text(' *', style: TextStyle(
-                                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),),
-                          ],),
-                        Text("ARRYTHMIA", style: TextStyle(letterSpacing: 4.0)),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Heart Rythm", style: TextStyle(fontSize: 18)),
+                          Text("NORMAL SINUS RHYTM", style: TextStyle(letterSpacing: 4.0), textAlign: TextAlign.center,),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Text("*) 79% of the analyzed full-length pulse sequence has aa regular rythm"),
 
           SizedBox(height: 20),
 
@@ -91,28 +87,10 @@ class ResultProVersion extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Physical Condition", style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text("Weight : 90 kg"),
-                          Text("Height : 176 cm"),
-                          Text("BMI: 29.1"),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text("Physical Status", style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text("overweight BMI"),
-                          Text("Normal weight range"),
-                          Text("57-77kg"),
-                        ],
-                      ),
-                    ],
-                  ),
+                  Text("Physical Condition and Status", style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Weight  : 90 kg"),
+                  Text("Height  : 176 cm"),
+                  Text("BMI       : 29.1" + " (overweight)"),
                   SizedBox(height: 15),
                   Text("Analysis", style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("Your heart rythm were identified as an arrythmia, but the heart rate was significantly high. You stated that you were in the passive activity mode during the checkup and had a several clinical backgrounds, such as high blood pressure and diabetes melitus. Those clinical backgrounds might have played a significant role in increasing the heart rate and arrythmia. Further treatment will be needed."),
@@ -184,7 +162,7 @@ class ResultProVersion extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  child: Text("Access full report", style: TextStyle(fontSize: 16.0)),
+                  child: Text("Download full report", style: TextStyle(fontSize: 16.0)),
                   onPressed: (){},
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.all(10.0),
