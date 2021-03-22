@@ -1,6 +1,8 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/components/appBar.dart';
 
 class AudioMaterial extends StatefulWidget {
   @override
@@ -71,177 +73,169 @@ class _AudioMaterialState extends State<AudioMaterial> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Audio Session"), titleTextStyle: TextStyle(color: Colors.black),),
+        title: Text("Audio Session",
+        style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white),
 
-      //let's start by creating the main UI of the app
       body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.grey,
-                Colors.white,
-              ]),
+          color: Colors.grey[50],
         ),
         child: Padding(
           padding: EdgeInsets.only(
             top: 48.0,
           ),
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //Let's add some text title
-                Padding(
-                  padding: const EdgeInsets.only(left: 12.0),
-                  child: Text(
-                    "Audio Sessions",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 38.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 12.0),
-                  child: Text(
-                    "Your doctor buddy once said",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 24.0,
-                ),
-                //Let's add the music cover
-                Center(
-                  child: Container(
-                    width: 280.0,
-                    height: 280.0,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30.0),
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/logo.png"),
-                        )),
-                  ),
-                ),
-
-                SizedBox(
-                  height: 18.0,
-                ),
-                Center(
-                  child: Text(
-                    "Judul podkes",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30.0),
-                        topRight: Radius.circular(30.0),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        //Let's start by adding the controller
-                        //let's add the time indicator text
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 30, left: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //Let's add the music cover
+                      Expanded(
+                            child: Image.asset("assets/images/coverpodkes.png"),
+                              ),
 
-                        Container(
-                          width: 500.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${position.inMinutes}:${position.inSeconds.remainder(60)}",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
-                              slider(),
-                              Text(
-                                "${musicLength.inMinutes}:${musicLength.inSeconds.remainder(60)}",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                ),
-                              ),
-                            ],
-                          ),
+                      Text(
+                        "Judul Podkes",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.w500,
                         ),
-                        Row(
+                      ),
+                      Text(
+                        "with dr. Zackie",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Chip(label: Text("Tips & trick", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
+                          Chip(label: Text("Food", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[400]),
+                          Chip(label: Text("Lifestyle", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16.0,
+                      ),
+                      Text(
+                          "The description of this audio session will be placed here. It"
+                              " should be exactly one paragraph consisting of at least 3 "
+                              "sentences. The description will only explain the overviews "
+                              "and should acts like a “hook”, making people curious with s"
+                              "oft approach.",
+                      ),
+                      SizedBox(height: 30),
+
+                    ],
+                  ),
+                ),
+                ),
+
+                // play indicator
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //Let's start by adding the controller
+                      //let's add the time indicator text
+                      SizedBox(height: 30),
+                      Container(
+                        width: 500.0,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            IconButton(
-                              iconSize: 45.0,
-                              color: Colors.blue,
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.skip_previous,
+                            Text(
+                              "${position.inMinutes}:${position.inSeconds.remainder(60)}",
+                              style: TextStyle(
+                                fontSize: 18.0,
                               ),
                             ),
-                            IconButton(
-                              iconSize: 62.0,
-                              color: Colors.blue[800],
-                              onPressed: () {
-                                //here we will add the functionality of the play button
-                                if (!playing) {
-                                  //now let's play the song
-                                  cache.play("audio/dummy cardiwatch.mp3");
-                                  setState(() {
-                                    playBtn = Icons.pause;
-                                    playing = true;
-                                  });
-                                } else {
-                                  _player.pause();
-                                  setState(() {
-                                    playBtn = Icons.play_arrow;
-                                    playing = false;
-                                  });
-                                }
-                              },
-                              icon: Icon(
-                                playBtn,
-                              ),
-                            ),
-                            IconButton(
-                              iconSize: 45.0,
-                              color: Colors.blue,
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.skip_next,
+                            slider(),
+                            Text(
+                              "${musicLength.inMinutes}:${musicLength.inSeconds.remainder(60)}",
+                              style: TextStyle(
+                                fontSize: 18.0,
                               ),
                             ),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                            iconSize: 45.0,
+                            color: Colors.grey,
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.skip_previous,
+                            ),
+                          ),
+                          IconButton(
+                            iconSize: 62.0,
+                            color: Colors.grey[800],
+                            onPressed: () {
+                              //here we will add the functionality of the play button
+                              if (!playing) {
+                                //now let's play the song
+                                cache.play("audio/dummy cardiwatch.mp3");
+                                setState(() {
+                                  playBtn = Icons.pause;
+                                  playing = true;
+                                });
+                              } else {
+                                _player.pause();
+                                setState(() {
+                                  playBtn = Icons.play_arrow;
+                                  playing = false;
+                                });
+                              }
+                            },
+                            icon: Icon(
+                              playBtn,
+                            ),
+                          ),
+                          IconButton(
+                            iconSize: 45.0,
+                            color: Colors.grey,
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.skip_next,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
         ),
-      ),
     );
   }
 }
