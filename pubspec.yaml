@@ -43,6 +43,7 @@ dependencies:
   sliding_up_panel: ^1.0.2
   video_player: ^2.0.2
   audioplayers: ^0.16.0
+  demoji: ^1.0.1
 #  shared_preferences: ^2.0.0
 #  image_picker: ^0.6.3+4
 #  cached_network_image: ^2.1.0+1

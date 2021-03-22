@@ -38,6 +38,7 @@ class _ActionDetailState extends State<ActionDetail> {
       videoPrepared = true;
     }
     _controller.setVolume(1.0);
+    _controller.setLooping(true);
     _controller.addListener(() {
       if (_controller.value.position == _controller.value.duration) {
         Navigator.pop(context);
@@ -60,6 +61,15 @@ class _ActionDetailState extends State<ActionDetail> {
     );
 
     return Scaffold(
+      appBar: AppBar(
+          title: Text("Action name"),
+          actions: <Widget>[
+          TextButton(
+            onPressed: () {},
+            child: Text('Done', style: TextStyle(fontSize: 16, color: Colors.black)),
+          ),
+        ]
+      ),
       body: SlidingUpPanel(
         panel: Container(
           child: Column(
@@ -91,10 +101,10 @@ class _ActionDetailState extends State<ActionDetail> {
           child: Center(
             child: Column(
               children: [
-                Divider(),
+                ImageIcon(AssetImage("assets/images/arrowup.jpg")),
                 Text(
                   "Swipe up for details",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(color: Colors.black, fontSize: 18),
                 ),
               ],
             ),

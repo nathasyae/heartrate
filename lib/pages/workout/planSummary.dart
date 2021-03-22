@@ -39,23 +39,23 @@ class _PlanSummaryState extends State<PlanSummary> {
               context,
               MaterialPageRoute(builder: (context) => ActionDetail())
           ),
-          child: Image(image: AssetImage('assets/images/workout_card.png')),
+          child: Image(image: AssetImage('assets/images/videocard.png')),
         ),
       ),
       SizedBox(width: 10),
       Container(
         // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/food_card.png')),
+        child: Image(image: AssetImage('assets/images/videocard.png')),
       ),
       SizedBox(width: 10),
       Container(
         // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/workout_card.png')),
+        child: Image(image: AssetImage('assets/images/videocard.png')),
       ),
       SizedBox(width: 10),
       Container(
         // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/food_card.png')),
+        child: Image(image: AssetImage('assets/images/videocard.png')),
       ),
     ];
 
@@ -66,7 +66,7 @@ class _PlanSummaryState extends State<PlanSummary> {
           backgroundColor: Colors.white,
         ),
         bottomSheet: Container(
-          height: 100,
+          height: 80,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -79,7 +79,7 @@ class _PlanSummaryState extends State<PlanSummary> {
           ),
           alignment: Alignment.center,
             child: TextButton(
-              child: Text("Stop exercise", style: TextStyle(fontSize: 16.0)),
+              child: Text("Finish exercise", style: TextStyle(fontSize: 16.0)),
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => FinishPage())
@@ -91,24 +91,11 @@ class _PlanSummaryState extends State<PlanSummary> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0))),
             ),
-
-          // child: TextButton(
-          //   child: Text("Finish exercise", style: TextStyle(fontSize: 16.0)),
-          //   onPressed: () => Navigator.push(
-          //       context,
-          //       MaterialPageRoute(builder: (context) => FinishPage())
-          //   ),
-          //   style: TextButton.styleFrom(
-          //       padding: EdgeInsets.all(10.0),
-          //       primary: Colors.white,
-          //       backgroundColor: Colors.green,
-          //       shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(5.0))),
-          // ),
         ),
         body: ListView(
             children: [
 
+              SizedBox(height: 10),
               // Dynamic Exercise
               Container(
                 margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -154,17 +141,17 @@ class _PlanSummaryState extends State<PlanSummary> {
               ),
 
               ListTile(
-                leading: ImageIcon(AssetImage('assets/images/thumbnailworkout.png')),
-                title: Text('Barrackr Obama'),
+                leading: Image.asset('assets/images/thumbnailworkout.png'),
+                title: Text('Push Up (5x)'),
                 trailing: Icon(Icons.check),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('Neil Armstrong'),
+                leading: Image.asset('assets/images/thumbnailworkout.png'),
+                title: Text('Jumping Jacks (10x)'),
               ),
               ListTile(
-                leading: Icon(Icons.account_circle),
-                title: Text('Ivan Ivanovich Ivanov'),
+                leading: Image.asset('assets/images/thumbnailworkout.png'),
+                title: Text('Mountain Climber (5x)'),
               ),
 
             ]
