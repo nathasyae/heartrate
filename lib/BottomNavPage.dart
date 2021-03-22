@@ -6,7 +6,7 @@ import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'package:heartrate/pages/profile.dart';
 import 'package:heartrate/pages/programs.dart';
-import 'package:heartrate/pages/resultProVersion.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/resultProVersion.dart';
 
 class BottomNavPage extends StatefulWidget {
 

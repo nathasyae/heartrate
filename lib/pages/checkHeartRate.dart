@@ -11,7 +11,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:heartrate/chart.dart';
 import 'package:quiver/async.dart';
-import 'package:heartrate/pages/result.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:heartrate/models/Log.dart';
 import 'package:heartrate/models/User.dart';
 import 'package:firebase_core/firebase_core.dart';

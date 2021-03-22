@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'package:heartrate/pages/forms/cvdHistory.dart';
-import 'package:heartrate/pages/result.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 class HealthHistory extends StatefulWidget {
   UserData userData;

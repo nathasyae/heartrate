@@ -5,7 +5,7 @@ import 'package:heartrate/models/Survey.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'package:heartrate/models/UserData.dart';
-import 'package:heartrate/pages/result.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:international_system_of_units/international_system_of_units.dart';
 
 import 'healthHistory.dart';

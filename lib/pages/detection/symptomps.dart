@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heartrate/pages/result.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 class Symptomps extends StatefulWidget {
   final String avgBPM, heartCondition;
@@ -12,16 +12,11 @@ class Symptomps extends StatefulWidget {
 
 class SymptompsState extends State<Symptomps> {
   Map<String, bool> values = {
-    'general fatigue': false,
-    'rapid and irregular heartbeat': false,
-    'faintness or confusion': false,
-    'fluttering or thumping in the chest': false,
-    'dizziness': false,
-    'sweating': false,
-    'chest pain': false,
-    'shortness of breath and anxiety': false,
-    'weakness': false,
-    'fatigue when exercising': false,
+    'Feeling cold on the arms/legs': false,
+    'Feeling Fatigue': false,
+    'Chest pain on the left side (Angina)': false,
+    'Feeling dizzy/lightheadness': false,
+    'Difficulties in breathing': false,
   };
 
   @override
@@ -35,7 +30,9 @@ class SymptompsState extends State<Symptomps> {
                     height:30),
                 Text("Choose symptoms that you have:",
                     style: TextStyle(fontSize: 24.0)),
-                ListView(
+            Text("Leave unselected if you have no specific heath conditions.",
+                style: TextStyle(fontStyle: FontStyle.italic)),
+            ListView(
                   shrinkWrap: true,
                   children: values.keys.map((String key) {
                     return new CheckboxListTile(

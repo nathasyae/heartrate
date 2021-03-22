@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/components/MultiSelectChip.dart';
-import 'package:heartrate/pages/result.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class PrecheckState extends StatefulWidget {
