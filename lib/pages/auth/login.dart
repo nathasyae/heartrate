@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:heartrate/pages/register.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../BottomNavPage.dart';
+import '../../BottomNavPage.dart';
 
 class Login extends StatefulWidget {
   @override

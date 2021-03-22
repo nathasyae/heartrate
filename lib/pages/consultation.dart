@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:heartrate/models/Doctor.dart';
-import 'package:heartrate/pages/register.dart';
+import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
 import 'package:intl/intl.dart';
 
 import '../auth.dart';
-import 'login.dart';
+import 'auth/login.dart';
 
 class Consultation extends StatefulWidget {
   @override
