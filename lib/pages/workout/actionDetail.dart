@@ -62,7 +62,7 @@ class _ActionDetailState extends State<ActionDetail> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("Action name"),
+          title: Text("Action name", style: TextStyle(color: Colors.black),),
           actions: <Widget>[
           TextButton(
             onPressed: () {},
@@ -75,7 +75,7 @@ class _ActionDetailState extends State<ActionDetail> {
           child: Column(
             children: [
               SizedBox(height: 30),
-              Text("How to Action Name", style: TextStyle(fontSize: 24)),
+              Text("How to Action Name", style: TextStyle(fontSize: 20)),
               Expanded(
                   child:
                   ListView.builder(
@@ -101,10 +101,10 @@ class _ActionDetailState extends State<ActionDetail> {
           child: Center(
             child: Column(
               children: [
-                ImageIcon(AssetImage("assets/images/arrowup.jpg")),
+                ImageIcon(AssetImage("assets/images/arrowup.png"), size: 40,),
                 Text(
                   "Swipe up for details",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(color: Colors.black, fontSize: 16),
                 ),
               ],
             ),
