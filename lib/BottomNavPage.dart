@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:heartrate/pages/calendarScreen.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/consultation.dart';
+import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'package:heartrate/pages/profile.dart';
 import 'package:heartrate/pages/programs.dart';
 import 'package:heartrate/pages/resultProVersion.dart';
@@ -32,7 +33,8 @@ class _BottomNavPageState extends State<BottomNavPage> {
       Programs(),
       checkHeartRate(),
       // Consultation(),
-      ResultProVersion(),
+      // ResultProVersion(),
+      PersonalInfo(),
       Profile(),
     ];
 

@@ -12,9 +12,9 @@ import 'healthHistory.dart';
 
 class PersonalInfo extends StatefulWidget {
   UserData userData;
-  // new UserData(null, null, null, null, null, null, null. null, null, null, null);
+  String uid = '4LuhSXvV9MMJJA3i3ocWbZNTCVn2';
 
-  PersonalInfo({Key key, @required this.userData}) : super(key: key);
+  PersonalInfo({Key key, this.uid}) : super(key: key);
 
   @override
   PersonalInfoState createState() => new PersonalInfoState();
@@ -24,6 +24,7 @@ class PersonalInfo extends StatefulWidget {
 class PersonalInfoState extends State<PersonalInfo> {
 
   Survey survey;
+  String gender;
 
   TextEditingController _weightController = new TextEditingController();
   TextEditingController _heightController = new TextEditingController();
@@ -60,10 +61,8 @@ class PersonalInfoState extends State<PersonalInfo> {
     // _weightController.text = widget.userData.weight?.toString() ?? "0";
 
     return new Scaffold(
-      body: Container(
-          margin: const EdgeInsets.all(30),
-        height: 500,
-        child: ListView(
+      body: ListView(
+          padding: EdgeInsets.all(30),
           children: [
                 SizedBox(
                     height:30),
@@ -79,7 +78,7 @@ class PersonalInfoState extends State<PersonalInfo> {
                   keyboardType: TextInputType.number,
                 )),
                 DropDown(
-                  items: ["KG", "LBS"],
+                  items: ["KG"],
                   hint: Text("KG"),
                   onChanged: (meassure) {
                     setState(() {
@@ -105,7 +104,7 @@ class PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
                 DropDown(
-                  items: ["CM", "INCH"],
+                  items: ["CM"],
                   hint: Text("CM"),
                   // onChanged: (text) {
                   //     value = text;
@@ -117,12 +116,14 @@ class PersonalInfoState extends State<PersonalInfo> {
               children: [
                 Text("Gender:"),
                 DropDown(
-                  items: ["Male", "Female", "Other"],
+                  items: ["Male", "Female"],
                   // initialValue: survey.genderList[_genderController.text.toInt()] ?? "Select gender",
                   hint: Text("Select gender"),
-                  // onChanged: (text) {
-                  //     value = text;
-                  //     },{},
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value;
+                    });
+                  }
                 ),
               ],
             ),
@@ -142,9 +143,10 @@ class PersonalInfoState extends State<PersonalInfo> {
                         side: BorderSide(color: Colors.red)
                     ),
                     onPressed: () {
+                      UserData userData = new UserData(uid: widget.uid, gender: gender, weight: kg, height: cm);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HealthHistory()),
+                        MaterialPageRoute(builder: (context) => HealthHistory(userData: userData)),
                       );
                     },
                     child: Text(
@@ -156,7 +158,6 @@ class PersonalInfoState extends State<PersonalInfo> {
               ),
               ],
             )
-        ),
     );
   }
 }
