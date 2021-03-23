@@ -83,7 +83,7 @@ class CvdHistoryState extends State<CvdHistory> {
                     side: BorderSide(color: Colors.red)
                 ),
                 onPressed: () {
-                  widget.userData.healthConditions = selectedDisease;
+                  // widget.userData.healthConditions = selectedDisease;
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ActivityLevel(userData: widget.userData)),

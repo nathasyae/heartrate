@@ -183,11 +183,11 @@ class ActivityLevelState extends State<ActivityLevel> {
 
                     // send to backend
                     bool isDone = await updateProfileDb(widget.userData);
-
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => BottomNavPage()),
-                    );
+                    //
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => BottomNavPage()),
+                    // );
                   },
                   child: Text(
                     "Finish Survey",
@@ -213,41 +213,44 @@ class ActivityLevelState extends State<ActivityLevel> {
       }
     };
 
-    Map<String, String> dataMapped = {
+    Map<String, dynamic> dataMapped = {
       'weight': userData.weight,
       'height': userData.height,
       'gender': userData.gender,
-      'survey': {
-        'healthConditions': userData.healthConditions.toString(),
-        'userCategory': userData.userCategory,
-      }.toString()
+      'healthConditions': userData.healthConditions,
+      'userCategory': userData.userCategory,
     };
 
-    print(dataMapped.toString());
-    print('https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/'+ userData.profilId.toString() + '/');
+    final http.Response response = await http.put(
+      'https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/'+ userData.profilId + '/',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode({
+        'weight': userData.weight,
+        'height': userData.height,
+        'gender': userData.gender,
+        'healthConditions': userData.healthConditions,
+        'userCategory': userData.userCategory,
+      }),
+    );
 
-    // final http.Response response = await http.put(
-    //   'https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/'+ userData.profilId + '/',
-    //   headers: <String, String>{
-    //     'Content-Type': 'application/json; charset=UTF-8',
-    //   },
-    //   body: jsonEncode(dataMapped),
-    // );
+    print(jsonDecode(response.body).toString());
 
-    // if (response.statusCode == 200) {
-    //   debugPrint('RESJSON success');
-    // } else if (response.statusCode == 400){
-    //   debugPrint('RESJSON ' + response.toString());
-    // } else {
-    //   debugPrint('RESJSON fail ' +response.statusCode.toString());
-    //   throw Exception('Failed to load');
-    // }
-    //
-    // if(response!=null){
-    //   isDone = true;
-    // }
-    //
-    // return isDone;
+    if (response.statusCode == 200) {
+      print('RESJSON success');
+    } else if (response.statusCode == 400){
+      print('RESJSON ' + response.toString());
+    } else {
+      print('RESJSON fail ' +response.statusCode.toString());
+      throw Exception('Failed to load');
+    }
+
+    if(response!=null){
+      isDone = true;
+    }
+
+    return isDone;
 
   }
 }

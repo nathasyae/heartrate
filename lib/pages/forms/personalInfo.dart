@@ -17,6 +17,7 @@ class PersonalInfo extends StatefulWidget {
 }
 
 class PersonalInfoState extends State<PersonalInfo> {
+  final _formKey = GlobalKey<FormState>();
 
   Survey survey;
   String gender;
@@ -39,70 +40,91 @@ class PersonalInfoState extends State<PersonalInfo> {
                 Text("Please enter your personal information",
                     style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w400)),
             SizedBox(height: 20),
-            Row(
-              children: [
-                Text("Body weight : "),
-                Expanded(
-                    child: TextField(
-                      onChanged: (value){
-                        setState(() {
-                          kg = value;
-                        });
-                      },
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                )),
-                DropDown(
-                  items: ["KG"],
-                  hint: Text("KG"),
-                  onChanged: (meassure) {
-                    setState(() {
-                      if (meassure == "KG") {
-                        // _convertLbsToKg();
-                      } else {
-                        // _convertLbsToKg();
-                      }
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text("Body height : "),
-                Expanded(
-                  child: TextField(
-                    onChanged: (value){
-                      setState(() {
-                        cm = value;
-                      });
-                    },
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Body weight : "),
+                      Expanded(
+                          child: TextFormField(
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your weight';
+                              }
+                              return null;
+                            },
+                            onChanged: (value){
+                              setState(() {
+                                kg = value;
+                              });
+                            },
+                            autofocus: true,
+                            keyboardType: TextInputType.number,
+                          )),
+                      DropDown(
+                        items: ["KG"],
+                        hint: Text("KG"),
+                        onChanged: (meassure) {
+                          setState(() {
+                            if (meassure == "KG") {
+                              // _convertLbsToKg();
+                            } else {
+                              // _convertLbsToKg();
+                            }
+                          });
+                        },
+                      ),
+                    ],
                   ),
-                ),
-                DropDown(
-                  items: ["CM"],
-                  hint: Text("CM"),
-                ),
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              children: [
-                Text("Gender  :   "),
-                DropDown(
-                  items: ["Male", "Female"],
-                  // initialValue: survey.genderList[_genderController.text.toInt()] ?? "Select gender",
-                  hint: Text("Select gender"),
-                  onChanged: (value) {
-                    setState(() {
-                      gender = value;
-                    });
-                  }
-                ),
-              ],
+                  SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text("Body height : "),
+                      Expanded(
+                        child: TextFormField(
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your height';
+                            }
+                            return null;
+                          },
+                          onChanged: (value){
+                            setState(() {
+                              cm = value;
+                            });
+                          },
+                          autofocus: true,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      DropDown(
+                        items: ["CM"],
+                        hint: Text("CM"),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text("Gender  :   "),
+                      DropDown(
+                          items: ["Male", "Female"],
+                          // initialValue: survey.genderList[_genderController.text.toInt()] ?? "Select gender",
+                          hint: Text("Select gender"),
+                          onChanged: (value) {
+                            setState(() {
+                              gender = value;
+                            });
+                          }
+                      ),
+                    ],
+                  ),
+                ]
+              ),
             ),
 
               // Actions
@@ -120,14 +142,17 @@ class PersonalInfoState extends State<PersonalInfo> {
                         side: BorderSide(color: Colors.red)
                     ),
                     onPressed: () {
+                      if (_formKey.currentState.validate()) {
                         widget.userData.gender = gender;
                         widget.userData.weight = kg;
                         widget.userData.height = cm;
 
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HealthHistory(userData: widget.userData)),
-                      );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              HealthHistory(userData: widget.userData)),
+                        );
+                      }
                     },
                     child: Text(
                       "Next",

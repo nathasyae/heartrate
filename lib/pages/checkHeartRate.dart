@@ -95,22 +95,16 @@ class checkHeartRateView extends State<checkHeartRate> {
       isWaitingAsync = true;
       _processing = false;
       counter+=1;
-      createRecord(_report.toString());
+      await createRecord(_report.toString());
 
-      if (isLogCreated){
-        _toggled = false;
-        print('DEBUG CHECK ' + avgBPM + heartCondition);
-        screeningData = ScreeningData(userUid: uid, sensorData: _report);
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Symptomps(screeningData: screeningData))
-        );
-      } else {
-        Navigator.push(
+      _toggled = false;
+      print('DEBUG CHECK ' + avgBPM + heartCondition);
+      screeningData = ScreeningData(userUid: uid, sensorData: _report);
+      Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Invalid()),
-        );
-      }
+          MaterialPageRoute(builder: (context) => Symptomps(screeningData: screeningData))
+      );
+
     });
   }
 

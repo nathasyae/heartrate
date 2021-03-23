@@ -87,8 +87,7 @@ class HealthHistoryState extends State<HealthHistory> {
                 ),
                 onPressed: () {
                   widget.userData.healthConditions = selectedConditions;
-                  print('selectedConditions ' + selectedConditions.toString());
-                  print('userdata selectedConditions ' + widget.userData.healthConditions.toString());
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CvdHistory(userData: widget.userData)),
