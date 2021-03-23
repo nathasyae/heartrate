@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/homePage.dart';
+import 'package:heartrate/models/UserData.dart';
+import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'login.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+import 'package:http/http.dart' as http;
 
 
 class Register extends StatefulWidget {
@@ -90,12 +97,14 @@ class _RegisterState extends State<Register> {
                     final newuser =
                     await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
-                    print('inilah ' + newuser.user.email);
+
+                    postProfiletoDB(newuser.user.uid, email);
+
                     if (newuser != null) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => Login()),
+                            builder: (context) => PersonalInfo()),
                       );
                       setState(() {
                         showProgress = false;
@@ -147,4 +156,36 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+
+  Future<bool> postProfiletoDB(String uid, String email) async {
+    bool isDone = false;
+
+    final http.Response response = await http.post(
+      'https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'uid': uid,
+        'email': email,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint('RESJSON success');
+    } else if (response.statusCode == 400){
+      debugPrint('RESJSON ' + response.toString());
+    } else {
+      debugPrint('RESJSON fail ' +response.statusCode.toString());
+      throw Exception('Failed to load');
+    }
+
+    if(response!=null){
+      isDone = true;
+    }
+
+    return isDone;
+
+  }
+
 }

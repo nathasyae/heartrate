@@ -1,8 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:heartrate/models/UserData.dart';
+import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:http/http.dart' as http;
 
 import '../../BottomNavPage.dart';
 
@@ -12,6 +18,8 @@ class Login extends StatefulWidget {
 }
 class _LoginState extends State<Login> {
   final _auth = FirebaseAuth.instance;
+
+  UserData userData;
   bool showProgress = false;
   String email, password;
   String useruid;
@@ -99,14 +107,27 @@ class _LoginState extends State<Login> {
 
                     if (newUser != null) {
                       print('login successfull');
-                      setState(() {
-                        showProgress = false;
-                      });
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNavPage()),
-                      );
+
+                      bool isDone = await checkIsSurveyFilled(useruid);
+
+                      if (userData.userCategory != null) {
+                        setState(() {
+                          showProgress = false;
+                        });
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              BottomNavPage()),
+                        );
+                      } else {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) =>
+                              PersonalInfo()),
+                        );
+                      }
                     }
+
                   } catch (e) {
                       setState(() {
                         errormsg = 'Invalid email or password';
@@ -150,4 +171,39 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  Future<bool> checkIsSurveyFilled(String uid) async {
+    bool isDone = false;
+
+    final http.Response response = await http.get(
+      'https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/uid/?uid='+uid,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint('RESJSON success');
+
+      UserData result = UserData.fromJson(jsonDecode(response.body));
+
+      setState(() {
+        userData = result;
+      });
+
+    } else if (response.statusCode == 400){
+      debugPrint('RESJSON ' + response.toString());
+    } else {
+      debugPrint('RESJSON fail ' +response.statusCode.toString());
+      throw Exception('Failed to load');
+    }
+
+    if(response!=null){
+      isDone = true;
+    }
+
+    return isDone;
+
+  }
+
 }
