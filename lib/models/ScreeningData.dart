@@ -5,7 +5,7 @@ class ScreeningData{
   bool isRythmNormal;
   List<String> symptomps, intensity;
   DateTime checkedDateTime;
-  double bpm, weight, height, bmi;
+  String bpm, weight, height, bmi;
   List<SensorValue> sensorData; // send to API as list of string
 
   ScreeningData({
@@ -39,9 +39,9 @@ class ScreeningData{
       userUid: json['userUid'],
       checkedDateTime: json['checkedDateTime'],
       detailAnalysis: json['detailAnalysis'],
-      weight: json['weight'],
-      height: json['height'],
-      bmi: json['bmi'],
+      weight: json['weight'].toString(),
+      height: json['height'].toString(),
+      bmi: json['bmi'].toString(),
       bmiStatus: json['bmiStatus'],
       consultText: json['consultText'],
       preventionText: json['preventionText'],
