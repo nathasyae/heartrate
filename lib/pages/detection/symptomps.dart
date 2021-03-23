@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:heartrate/models/ScreeningData.dart';
 import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
+import 'package:heartrate/pages/detection/precheckstate.dart';
 
 class Symptomps extends StatefulWidget {
-  final String avgBPM, heartCondition;
+  ScreeningData screeningData;
 
-  const Symptomps({Key key, this.avgBPM, this.heartCondition}) : super(key: key);
+  Symptomps({Key key, this.screeningData}) : super(key: key);
 
   @override
   SymptompsState createState() => new SymptompsState();
@@ -19,6 +21,20 @@ class SymptompsState extends State<Symptomps> {
     'Difficulties in breathing': false,
   };
 
+  bool isSelected =false;
+  var mycolor = Colors.white;
+  
+  List<String> symptompsList = [
+    'Feeling cold on the arms/legs',
+    'Feeling Fatigue',
+    'Chest pain on the left side (Angina)',
+    'Feeling dizzy/lightheadness',
+    'Difficulties in breathing',
+  ];
+
+  List<String> selectedSymptomps = [];
+  List<bool> isSelectedList = [false,false,false,false,false];
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -30,49 +46,82 @@ class SymptompsState extends State<Symptomps> {
                     height:30),
                 Text("Choose symptoms that you have:",
                     style: TextStyle(fontSize: 24.0)),
+            SizedBox(height: 10),
             Text("Leave unselected if you have no specific heath conditions.",
                 style: TextStyle(fontStyle: FontStyle.italic)),
-            ListView(
-                  shrinkWrap: true,
-                  children: values.keys.map((String key) {
-                    return new CheckboxListTile(
-                      title: new Text(key),
-                      value: values[key],
-                      onChanged: (bool value) {
-                        setState(() {
-                          values[key] = value;
-                        });
+            SizedBox(height: 20),
+            SizedBox(
+              height: 400,
+              child: ListView.builder(
+                itemCount: symptompsList.length,
+                itemBuilder: (BuildContext context, int position) {
+                  return new Card(
+                    color: isSelectedList[position] ? Colors.red[100] : null,
+                    child: new ListTile(
+                        selected: isSelectedList[position],
+                        trailing: const Icon(Icons.info, color: Colors.grey,),
+                        title: new Text(symptompsList[position],style: TextStyle(color: Colors.black),),
+                        onTap: () {
+                          toggleSelection(position);
+                        }
+                    ),
+                  );
+                },
+              ),
+            ),
+
+                // Action
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      child: Text("Next", style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                      onPressed: () {
+                        widget.screeningData.symptomps = selectedSymptomps;
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Result(screeningData: widget.screeningData)));
                       },
-                    );
-                  }).toList(),
+                      style: TextButton.styleFrom(
+                          padding: EdgeInsets.all(10.0),
+                          primary: Colors.white,
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0))),
+                    ),
+                  ],
                 ),
-                FlatButton(
-                  minWidth: 250,
-                  color: Colors.red,
-                  textColor: Colors.white,
-                  disabledColor: Colors.grey,
-                  disabledTextColor: Colors.black,
-                  padding: EdgeInsets.all(10.0),
-                  // splashColor: secondaryRed,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      side: BorderSide(color: Colors.red)
-                  ),
-                  onPressed: () {
-                    print('DEBUG SYMPTOMPTS ' + widget.avgBPM + widget.heartCondition);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Result(avgBPM: widget.avgBPM, heartCondition: widget.heartCondition)),
-                    );
-                  },
-                  child: Text(
-                    "See Result",
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                ),
+
               ],
             )
         ),
     );
-  }
 }
+
+    void toggleSelection(position) {
+      setState(() {
+        if (isSelectedList[position]) {
+          // mycolor=Colors.white;
+          isSelectedList[position] = false;
+
+          if(selectedSymptomps.contains(symptompsList[position])) {
+            setState(() {
+              selectedSymptomps.removeWhere((val) => val == symptompsList[position]);
+            });
+          }
+
+        } else {
+          // mycolor=Colors.red[300];
+          isSelectedList[position] = true;
+
+          if(! selectedSymptomps.contains(symptompsList[position])){
+            setState(() {
+              selectedSymptomps.add(symptompsList[position]);
+            });
+          }
+        };
+
+        });
+      }
+
+    }

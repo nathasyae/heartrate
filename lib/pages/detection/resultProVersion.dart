@@ -1,10 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:heartrate/models/ScreeningData.dart';
 import 'package:heartrate/pages/consultation.dart';
 import 'package:heartrate/pages/programs.dart';
+import 'package:intl/intl.dart';
 
-class ResultProVersion extends StatelessWidget {
+
+class ResultProVersion extends StatefulWidget {
+  ScreeningData screeningData;
+
+  ResultProVersion({Key key, this.screeningData}) : super(key: key);
+
+  @override
+  ResultProVersionState createState() => new ResultProVersionState();
+}
+
+class ResultProVersionState extends State<ResultProVersion> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +33,8 @@ class ResultProVersion extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Checked on:", style: TextStyle(fontSize: 16)),
-                  Text("Fri, 06 Feb 2021 at 12:36", style: TextStyle(fontSize: 16)),
+
+                  Text(DateFormat('yyyy-MM-dd – kk:mm').format(widget.screeningData.checkedDateTime).toString(), style: TextStyle(fontSize: 16)),
                 ],
               ),
               Image(image: AssetImage('assets/images/reviewed_chip.png'), width: 120,),
@@ -45,7 +58,7 @@ class ResultProVersion extends StatelessWidget {
                           Text("Avg. Heart Rate", style: TextStyle(fontSize: 18)),
                           RichText(
                             text: TextSpan(
-                                text: '112',
+                                text: widget.screeningData.bpm.toString(),
                                 style: TextStyle(color: Colors.red, fontSize: 40.0, fontWeight: FontWeight.bold),
                                 children: <TextSpan>[
                                   TextSpan(text: ' BPM',
@@ -64,10 +77,11 @@ class ResultProVersion extends StatelessWidget {
                         color: Colors.grey),
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text("Heart Rythm", style: TextStyle(fontSize: 18)),
-                          Text("NORMAL SINUS RHYTM", style: TextStyle(letterSpacing: 4.0), textAlign: TextAlign.center,),
+                          Text(widget.screeningData.finalEvaluation, style: TextStyle(letterSpacing: 4.0), textAlign: TextAlign.center,),
                         ],
                       ),
                     ),
@@ -88,12 +102,12 @@ class ResultProVersion extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Physical Condition and Status", style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text("Weight  : 90 kg"),
-                  Text("Height  : 176 cm"),
-                  Text("BMI       : 29.1" + " (overweight)"),
+                  Text("Weight  : " + widget.screeningData.weight.toString() + " kg"),
+                  Text("Height  : " + widget.screeningData.weight.toString() + " cm"),
+                  Text("BMI       : " + widget.screeningData.weight.toString() + " ("+widget.screeningData.bmiStatus+")"),
                   SizedBox(height: 15),
                   Text("Analysis", style: TextStyle(fontWeight: FontWeight.bold)),
-                  Text("Your heart rythm were identified as an arrythmia, but the heart rate was significantly high. You stated that you were in the passive activity mode during the checkup and had a several clinical backgrounds, such as high blood pressure and diabetes melitus. Those clinical backgrounds might have played a significant role in increasing the heart rate and arrythmia. Further treatment will be needed."),
+                  Text(widget.screeningData.detailAnalysis),
                 ],
               ),
             ),
@@ -109,7 +123,7 @@ class ResultProVersion extends StatelessWidget {
               padding: EdgeInsets.all(15),
               child: Column(
                 children: [
-                  Text("Due to the confirmed irregular heart rythm, we highly recommend you to consult with the doctor for the further treatments."),
+                  Text(widget.screeningData.consultText),
                   SizedBox(height: 5),
                   SizedBox(
                     width: double.infinity,
@@ -128,7 +142,7 @@ class ResultProVersion extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Text("Additionally, we can give you some advice about what you can do by yourself, so you can minimize the risk factor."),
+                  Text(widget.screeningData.preventionText),
                   SizedBox(height: 5),
                   SizedBox(
                     width: double.infinity,

@@ -1,9 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/models/ScreeningData.dart';
 import 'package:heartrate/pages/invalid.dart';
 import 'package:wakelock/wakelock.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:heartrate/style.dart';
@@ -11,13 +10,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:heartrate/chart.dart';
 import 'package:quiver/async.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:heartrate/models/Log.dart';
-import 'package:heartrate/models/User.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:heartrate/pages/symptomps.dart';
+
+import 'detection/symptomps.dart';
 
 
 class checkHeartRate extends StatefulWidget {
@@ -29,6 +24,8 @@ class checkHeartRate extends StatefulWidget {
 }
 
 class checkHeartRateView extends State<checkHeartRate> {
+
+  ScreeningData screeningData;
 
   bool isWaitingAsync = false;
   bool _toggled = false;
@@ -98,16 +95,15 @@ class checkHeartRateView extends State<checkHeartRate> {
       isWaitingAsync = true;
       _processing = false;
       counter+=1;
-      _write(_report.toString(),counter);
-      isLogCreated = await createLog(_report.toString(), counter.toString());
       createRecord(_report.toString());
 
       if (isLogCreated){
         _toggled = false;
         print('DEBUG CHECK ' + avgBPM + heartCondition);
+        screeningData = ScreeningData(userUid: uid, sensorData: _report);
         Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Symptomps(avgBPM: avgBPM, heartCondition: heartCondition))
+            MaterialPageRoute(builder: (context) => Symptomps(screeningData: screeningData))
         );
       } else {
         Navigator.push(
@@ -118,37 +114,6 @@ class checkHeartRateView extends State<checkHeartRate> {
     });
   }
 
-  Future<bool> createLog(String data, String counter) async {
-    bool isSaved = false;
-
-    final http.Response response = await http.post(
-      'https://cardio-watch-functions.azurewebsites.net/api/PPGProcessor',
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'id': counter,
-        'array': data,
-      }),
-    );
-    if (response.statusCode == 200) {
-      debugPrint('RESJSON success');
-      debugPrint('RESJSON ' + response.toString());
-      Log log1 = Log.fromJson(jsonDecode(response.body));
-      debugPrint('RESJSON '+ log1.avgBPM.toString() + log1.heartCondition);
-
-      isSaved = await saveResponseLogToDb(response);
-
-    } else if (response.statusCode == 400){
-      debugPrint('RESJSON ' + response.toString());
-    } else {
-      debugPrint('RESJSON fail ' +response.statusCode.toString());
-      throw Exception('Failed to load');
-    }
-
-    return isSaved;
-
-  }
 
   void getUserUid() async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -179,12 +144,6 @@ class checkHeartRateView extends State<checkHeartRate> {
 
   }
 
-  _write(String text, int counter) async {
-    final Directory directory = await getApplicationDocumentsDirectory();
-    final File file = File('${directory.path}/report'+counter.toString()+'.txt');
-    await file.writeAsString(text);
-    debugPrint('export success to ' + '${directory.path}');
-  }
 
   final databaseReference = Firestore.instance;
   void createRecord(data) async {

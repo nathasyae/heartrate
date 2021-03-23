@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/models/ScreeningData.dart';
+import 'package:heartrate/pages/detection/resultProVersion.dart';
 
 import '../../BottomNavPage.dart';
 import '../dailyroutines.dart';
@@ -9,9 +11,9 @@ import '../dailyroutines.dart';
 final Firestore _db = Firestore.instance;
 
 class Result extends StatefulWidget {
-  final String avgBPM, heartCondition;
+  ScreeningData screeningData;
 
-  const Result({Key key, this.avgBPM, this.heartCondition}) : super(key: key);
+  Result({Key key, this.screeningData}) : super(key: key);
 
   @override
   ResultView createState() {
@@ -20,13 +22,13 @@ class Result extends StatefulWidget {
 }
 
 class ResultView extends State<Result> {
-  String avgBPM, heartCondition;
+  String avgBPM;
+  String heartCondition;
   bool isLoadDone;
 
   @override
   void initState() {
     super.initState();
-    // loadData(uidLog);
   }
 
   Future<void> loadData(String uid) async {
@@ -46,6 +48,9 @@ class ResultView extends State<Result> {
 
   @override
   Widget build(BuildContext context) {
+    avgBPM = widget.screeningData.bpm.toString();
+    heartCondition = widget.screeningData.finalEvaluation;
+
     return Scaffold(
         body: SafeArea(
             child: Column(
@@ -61,7 +66,7 @@ class ResultView extends State<Result> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.favorite, size:50, color: Colors.red,),
-                      Text(widget.avgBPM,
+                      Text(avgBPM,
                           style: TextStyle(fontSize: 50.0)),
                       Text(" BPM",
                           style: Theme.of(context).textTheme.bodyText1),
@@ -79,7 +84,7 @@ class ResultView extends State<Result> {
                       ImageIcon(
                         AssetImage("assets/img/heartbeat.png"),
                       ),
-                      Text(widget.heartCondition,
+                      Text(heartCondition,
                           style: TextStyle(fontSize: 25)),
                     ],
                   ),
@@ -99,11 +104,11 @@ class ResultView extends State<Result> {
                     onPressed: () {
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => DailyRoutines())
+                          MaterialPageRoute(builder: (context) => ResultProVersion(screeningData: widget.screeningData,))
                       );
                     },
                     child: Text(
-                      "See Daily Heart Routine",
+                      "See Analysis Detail",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),
@@ -139,7 +144,5 @@ class ResultView extends State<Result> {
         )
     );
   }
-
-  doNothing(){}
 
 }
