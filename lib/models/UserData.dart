@@ -1,11 +1,12 @@
 import 'dart:core';
 
 class UserData{
-  String uid, gender, activity_level;
+  String uid, gender, email, userCategory, profilId;
   double weight, height;
-  List<String> health_conditions, cvd_history;
+  List<String> healthConditions;
 
-  UserData({this.uid, this.gender, this.activity_level, this.weight, this.height, this.health_conditions, this.cvd_history});
+  UserData({
+    this.uid, this.gender, this.email, this.userCategory, this.weight, this.height, this.healthConditions, this.profilId});
 
   String getUid(){
     return this.uid;
@@ -21,14 +22,6 @@ class UserData{
 
   void setGender(String gender){
     this.gender = uid;
-  }
-
-  String getActivityLevel(){
-    return this.activity_level;
-  }
-
-  void setActivityLevel(String activity_level){
-    this.activity_level = activity_level;
   }
 
   double getHeight(){
@@ -48,19 +41,24 @@ class UserData{
   }
   
   List<String> getHealthConditions(){
-    return health_conditions;
+    return healthConditions;
   }
 
-  void setHealthConditions(List<String> health_conditions){
-    this.health_conditions = health_conditions;
+  void setHealthConditions(List<String> healthConditions){
+    this.healthConditions = healthConditions;
   }
 
-  List<String> getCvdHistory(){
-    return cvd_history;
-  }
-
-  void setCvdHistory(List<String> cvd_history){
-    this.cvd_history = cvd_history;
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
+        uid: json['uid'],
+        profilId: json['id'],
+        gender: json['gender'],
+        weight: json['weight'],
+        height: json['height'],
+        email: json['email'],
+        healthConditions: List<String>.from(json['survey']['healthConditions']),
+        userCategory: json['survey']['usercategory'],
+    );
   }
 
 }
