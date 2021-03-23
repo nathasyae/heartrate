@@ -13,8 +13,13 @@ class HealthHistory extends StatefulWidget {
 }
 
 List<String> conditionList = [
-  'High blood pressure (hypertension)', 'High blood glucose (diabetes)', 'Overweight (obesity)', 'Abnormal blood lipids (dyslipidaemia)'];
+  'High blood pressure (hypertension)',
+  'High blood glucose (diabetes)',
+  'Overweight (obesity)',
+  'Abnormal blood lipids (dyslipidaemia)'];
 
+List<String> selectedConditions = [];
+List<bool> isSelectedList = [false,false,false,false];
 
 class HealthHistoryState extends State<HealthHistory> {
   int selectedIndex = -1;
@@ -28,7 +33,8 @@ class HealthHistoryState extends State<HealthHistory> {
         children: <Widget>[
           SizedBox(height:30),
           Text("Do you have any of these health conditions?",
-              style: TextStyle(fontSize: 24.0)),
+              style: TextStyle(fontSize: 24.0,fontWeight: FontWeight.w400)),
+          SizedBox(height:10),
           Text("Leave unselected if you have no specific heath conditions.",
               style: TextStyle(fontStyle: FontStyle.italic)),
           Container(
@@ -36,26 +42,15 @@ class HealthHistoryState extends State<HealthHistory> {
             child: ListView.builder(
               itemCount: conditionList.length,
               itemBuilder: (BuildContext context, int position) {
-                return InkWell(
-                  onTap: () => setState(() => selectedIndex=position),
-                  child: Container(
-                    width: 150,
-                    child: Card(
-                      shape: (selectedIndex==position)
-                          ? RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.red))
-                          : null,
-                      child:
-                      Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(conditionList[position]),
-                          ],
-                        ),
-                      ),
-                    ),
+                return new Card(
+                  color: isSelectedList[position] ? Colors.red[100] : null,
+                  child: new ListTile(
+                      selected: isSelectedList[position],
+                      trailing: const Icon(Icons.info, color: Colors.grey,),
+                      title: new Text(conditionList[position],style: TextStyle(color: Colors.black),),
+                      onTap: () {
+                        toggleSelection(position);
+                      }
                   ),
                 );
               },
@@ -66,22 +61,20 @@ class HealthHistoryState extends State<HealthHistory> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              OutlineButton(
-                color: Colors.red,
-                textColor: Colors.red,
-                padding: EdgeInsets.all(10.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    side: BorderSide(color: Colors.red)
-                ),
-                onPressed: () {
+              TextButton(
+                child: Text("Previous", style: TextStyle(fontSize: 16.0)),
+                onPressed: (){
                   Navigator.of(context).pop();
                 },
-                child: Text(
-                  "Previous",
-                  style: TextStyle(fontSize: 16.0),
-                ),
+                style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(10.0),
+                    primary: Colors.red,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.red),
+                        borderRadius: BorderRadius.circular(5.0))),
               ),
+
               FlatButton(
                 color: Colors.red,
                 textColor: Colors.white,
@@ -93,7 +86,9 @@ class HealthHistoryState extends State<HealthHistory> {
                     side: BorderSide(color: Colors.red)
                 ),
                 onPressed: () {
-                  widget.userData.health_conditions = health_conditions;
+                  widget.userData.healthConditions = selectedConditions;
+                  print('selectedConditions ' + selectedConditions.toString());
+                  print('userdata selectedConditions ' + widget.userData.healthConditions.toString());
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CvdHistory(userData: widget.userData)),
@@ -110,4 +105,31 @@ class HealthHistoryState extends State<HealthHistory> {
       ),
     );
   }
+
+  void toggleSelection(position) {
+    setState(() {
+      if (isSelectedList[position]) {
+        // mycolor=Colors.white;
+        isSelectedList[position] = false;
+
+        if(selectedConditions.contains(conditionList[position])) {
+          setState(() {
+            selectedConditions.removeWhere((val) => val == conditionList[position]);
+          });
+        }
+
+      } else {
+        // mycolor=Colors.red[300];
+        isSelectedList[position] = true;
+
+        if(! selectedConditions.contains(conditionList[position])){
+          setState(() {
+            selectedConditions.add(conditionList[position]);
+          });
+        }
+      };
+
+    });
+  }
+
 }

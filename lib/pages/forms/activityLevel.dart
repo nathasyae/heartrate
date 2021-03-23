@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:heartrate/homePage.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 import '../../BottomNavPage.dart';
+import 'package:http/http.dart' as http;
 
 class ActivityLevel extends StatefulWidget {
   UserData userData;
@@ -17,11 +20,14 @@ class ActivityLevel extends StatefulWidget {
 class ActivityLevelState extends State<ActivityLevel> {
   TextEditingController nameController = TextEditingController();
   int _radioValue = 0;
-  String activity_level;
+  String activity_level="Sedentary";
+
+  List<String> activityList = ["Sedentary", "Lightly active", "Active", "VeryActive"];
 
   void _handleRadioValueChange(int value) {
     setState(() {
       _radioValue = value;
+      activity_level = activityList[value];
 
       switch (_radioValue) {
         case 0:
@@ -43,7 +49,8 @@ class ActivityLevelState extends State<ActivityLevel> {
           children: [
                 SizedBox(height:30),
                 Text("Which one that fits to your activity level?",
-                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500)),
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w400)),
+            SizedBox(height: 20),
             Row(
                 children: [
                   new Radio(
@@ -66,6 +73,7 @@ class ActivityLevelState extends State<ActivityLevel> {
                   ),
                 ]
             ),
+            SizedBox(height: 10),
 
             Row(
               children: [
@@ -93,6 +101,7 @@ class ActivityLevelState extends State<ActivityLevel> {
 
               ],
             ),
+            SizedBox(height: 10),
 
             Row(
               children: [
@@ -116,6 +125,8 @@ class ActivityLevelState extends State<ActivityLevel> {
                 ),
               ],
             ),
+            SizedBox(height: 10),
+
             Row(
               children: [
                 new Radio(
@@ -138,27 +149,24 @@ class ActivityLevelState extends State<ActivityLevel> {
                 ),
               ],
             ),
-
+            SizedBox(height: 10),
 
                 // Actions
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                OutlineButton(
-                    color: Colors.red,
-                    textColor: Colors.red,
-                    padding: EdgeInsets.all(10.0),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        side: BorderSide(color: Colors.red)
-                    ),
-                    onPressed:(){
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      "Previous",
-                      style: TextStyle(fontSize: 16.0),
-                    ),
+                TextButton(
+                  child: Text("Previous", style: TextStyle(fontSize: 16.0)),
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  },
+                  style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(10.0),
+                      primary: Colors.red,
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.red),
+                          borderRadius: BorderRadius.circular(5.0))),
                 ),
                 FlatButton(
                   color: Colors.red,
@@ -170,10 +178,11 @@ class ActivityLevelState extends State<ActivityLevel> {
                       borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(color: Colors.red)
                   ),
-                  onPressed: () {
-                    widget.userData.activity_level = activity_level;
+                  onPressed: () async {
+                    widget.userData.userCategory = activity_level;
 
                     // send to backend
+                    bool isDone = await updateProfileDb(widget.userData);
 
                     Navigator.pushReplacement(
                       context,
@@ -192,5 +201,53 @@ class ActivityLevelState extends State<ActivityLevel> {
             )
         ),
     );
+  }
+
+  Future<bool> updateProfileDb(UserData userData) async {
+    bool isDone = false;
+
+    Map<String, dynamic> surveyMapped = {
+      'survey': {
+        'healthConditions': userData.healthConditions.toString(),
+        'userCategory': userData.userCategory,
+      }
+    };
+
+    Map<String, String> dataMapped = {
+      'weight': userData.weight,
+      'height': userData.height,
+      'gender': userData.gender,
+      'survey': {
+        'healthConditions': userData.healthConditions.toString(),
+        'userCategory': userData.userCategory,
+      }.toString()
+    };
+
+    print(dataMapped.toString());
+    print('https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/'+ userData.profilId.toString() + '/');
+
+    // final http.Response response = await http.put(
+    //   'https://cardiwatch-core-frontendapi.azurewebsites.net/api/profile/'+ userData.profilId + '/',
+    //   headers: <String, String>{
+    //     'Content-Type': 'application/json; charset=UTF-8',
+    //   },
+    //   body: jsonEncode(dataMapped),
+    // );
+
+    // if (response.statusCode == 200) {
+    //   debugPrint('RESJSON success');
+    // } else if (response.statusCode == 400){
+    //   debugPrint('RESJSON ' + response.toString());
+    // } else {
+    //   debugPrint('RESJSON fail ' +response.statusCode.toString());
+    //   throw Exception('Failed to load');
+    // }
+    //
+    // if(response!=null){
+    //   isDone = true;
+    // }
+    //
+    // return isDone;
+
   }
 }

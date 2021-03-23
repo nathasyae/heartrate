@@ -63,7 +63,9 @@ class PrecheckStateState extends State<PrecheckState> {
               children: [
                 TextButton(
                   child: Text("Previous", style: TextStyle(fontSize: 16.0)),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  },
                   style: TextButton.styleFrom(
                   padding: EdgeInsets.all(10.0),
                   primary: Colors.red,

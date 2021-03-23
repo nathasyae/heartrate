@@ -3,18 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:heartrate/models/Survey.dart';
 import 'package:heartrate/models/UserData.dart';
-import 'package:heartrate/models/UserData.dart';
-import 'package:heartrate/models/UserData.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
-import 'package:international_system_of_units/international_system_of_units.dart';
 
 import 'healthHistory.dart';
 
 class PersonalInfo extends StatefulWidget {
   UserData userData;
-  String uid = '4LuhSXvV9MMJJA3i3ocWbZNTCVn2';
 
-  PersonalInfo({Key key, this.uid}) : super(key: key);
+  PersonalInfo({Key key, this.userData}) : super(key: key);
 
   @override
   PersonalInfoState createState() => new PersonalInfoState();
@@ -30,50 +25,30 @@ class PersonalInfoState extends State<PersonalInfo> {
   TextEditingController _heightController = new TextEditingController();
   TextEditingController _genderController = new TextEditingController();
 
-  double kg, lbs = 0;
-  double inch, cm = 0;
-
-  void _convertLbsToKg(){
-    double input_val = double.parse(_weightController.text); // just add checking for digital input there
-    setState(() {
-      lbs = input_val;
-      kg = input_val * 0.45359237;
-      _weightController.text = kg.toString();
-      print('kg ' + kg.toString());
-    });
-  }
-
-  void _convertKgToLbs(){
-    double input_val = double.parse(_weightController.text); // just add checking for digital input there
-    setState(() {
-      kg = input_val;
-      lbs = input_val / 0.45359237;
-      _weightController.text = lbs.toString();
-      print('lbs ' + lbs.toString());
-    });
-  }
-
-
-
+  String kg, lbs = "0";
+  String inch, cm = "0";
 
   @override
   Widget build(BuildContext context) {
-    // _weightController.text = widget.userData.weight?.toString() ?? "0";
 
     return new Scaffold(
       body: ListView(
           padding: EdgeInsets.all(30),
           children: [
-                SizedBox(
-                    height:30),
-                Text("Please enter your personal information...",
-                    style: TextStyle(fontSize: 24.0)),
-
+                SizedBox(height:30),
+                Text("Please enter your personal information",
+                    style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w400)),
+            SizedBox(height: 20),
             Row(
               children: [
-                Text("Body weight: "),
-                Expanded(child: TextField(
-                  controller: _weightController,
+                Text("Body weight : "),
+                Expanded(
+                    child: TextField(
+                      onChanged: (value){
+                        setState(() {
+                          kg = value;
+                        });
+                      },
                   autofocus: true,
                   keyboardType: TextInputType.number,
                 )),
@@ -83,22 +58,26 @@ class PersonalInfoState extends State<PersonalInfo> {
                   onChanged: (meassure) {
                     setState(() {
                       if (meassure == "KG") {
-                        // int.parse(_weightController.text).toKilograms(MassUnit.pound);
-                        _convertLbsToKg();
+                        // _convertLbsToKg();
                       } else {
-                        _convertLbsToKg();
+                        // _convertLbsToKg();
                       }
                     });
                   },
                 ),
               ],
             ),
+            SizedBox(height: 10),
             Row(
               children: [
-                Text("Body height: "),
+                Text("Body height : "),
                 Expanded(
                   child: TextField(
-                    // controller: _heightController,
+                    onChanged: (value){
+                      setState(() {
+                        cm = value;
+                      });
+                    },
                     autofocus: true,
                     keyboardType: TextInputType.number,
                   ),
@@ -106,15 +85,13 @@ class PersonalInfoState extends State<PersonalInfo> {
                 DropDown(
                   items: ["CM"],
                   hint: Text("CM"),
-                  // onChanged: (text) {
-                  //     value = text;
-                  //     },{},
                 ),
               ],
             ),
+            SizedBox(height: 10),
             Row(
               children: [
-                Text("Gender:"),
+                Text("Gender  :   "),
                 DropDown(
                   items: ["Male", "Female"],
                   // initialValue: survey.genderList[_genderController.text.toInt()] ?? "Select gender",
@@ -143,10 +120,13 @@ class PersonalInfoState extends State<PersonalInfo> {
                         side: BorderSide(color: Colors.red)
                     ),
                     onPressed: () {
-                      UserData userData = new UserData(uid: widget.uid, gender: gender, weight: kg, height: cm);
+                        widget.userData.gender = gender;
+                        widget.userData.weight = kg;
+                        widget.userData.height = cm;
+
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HealthHistory(userData: userData)),
+                        MaterialPageRoute(builder: (context) => HealthHistory(userData: widget.userData)),
                       );
                     },
                     child: Text(
