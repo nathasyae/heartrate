@@ -1,37 +1,30 @@
 import 'dart:core';
+import 'package:json_annotation/json_annotation.dart';
+part 'UserData.g.dart';
 
+@JsonSerializable(explicitToJson: true)
 class UserData{
-  String uid, gender, email, profilId, userCategory;
+  @JsonKey(name: 'id')
+  String profilId;
+
+  String uid, gender, email, userCategory, intensityLevel;
+  @JsonKey(fromJson: _doubleToString, toJson: _stringToDouble)
   String weight, height;
   List<String> healthConditions;
+  bool isProfileComplete;
 
   UserData({
-    this.uid, this.gender, this.email, this.weight, this.height, this.userCategory, this.healthConditions, this.profilId});
+    this.uid,
+    this.gender,
+    this.email, this.weight, this.height, this.userCategory, this.healthConditions, this.intensityLevel,
+    this.profilId, this.isProfileComplete});
 
-  factory UserData.fromJson(Map<String, dynamic> json) {
-    return UserData(
-        uid: json['uid'],
-        profilId: json['id'],
-        gender: json['gender'],
-        weight: json['weight'].toString(),
-        height: json['height'].toString(),
-        email: json['email'],
-        healthConditions: List<String>.from(json['healthConditions']),
-        userCategory: json['userCategory'],
+  factory UserData.fromJson(Map<String, dynamic> json) => _$UserDataFromJson(json);
 
-    );
-  }
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 
-  Map toJson() {
+  static String _doubleToString(double number) => number == null ? null : number.toString();
 
-    return {'uid': uid,
-      'id': profilId,
-      'gender': gender,
-      'weight': weight,
-      'height': height,
-      'email': email,
-    };
-  }
-
+  static double _stringToDouble(String number) => double.parse(number?.toString());
 
 }
