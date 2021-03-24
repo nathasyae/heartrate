@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/BottomNavPage.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:heartrate/style.dart';
 
 class Invalid extends StatefulWidget {

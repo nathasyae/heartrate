@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:heartrate/components/MultiSelectChip.dart';
 import 'package:heartrate/models/ScreeningData.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
-
+import 'package:heartrate/pages/detection/result.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import '../invalid.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -18,6 +19,9 @@ class PrecheckState extends StatefulWidget {
 }
 
 class PrecheckStateState extends State<PrecheckState> {
+
+  // bool isDone = false;
+  bool isInAsyncCall = false;
 
   List<String> stateList = [
     'Resting', 'Walking', 'Watching phone',
@@ -35,7 +39,9 @@ class PrecheckStateState extends State<PrecheckState> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: Container(
+      body: ModalProgressHUD(
+        inAsyncCall: isInAsyncCall,
+        child: Container(
           margin: const EdgeInsets.all(30),
         child: ListView(
           children: [
@@ -76,12 +82,20 @@ class PrecheckStateState extends State<PrecheckState> {
                 ),
                 TextButton(
                   child: Text("See Results", style: TextStyle(fontSize: 16.0, color: Colors.white)),
-                  onPressed: (){
+                  onPressed: () async {
                     widget.screeningData.intensity = selectedReportList;
-                    processDetection(widget.screeningData);
+
+                    print("precheck");
+                    print(widget.screeningData.intensity.toString());
+                    print(widget.screeningData.userUid);
+
+                    bool isDone = await processDetection(widget.screeningData);
+
+                    print('sblm ke result ' + widget.screeningData.userUid);
+
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Result(screeningData: result)));
+                      MaterialPageRoute(builder: (context) => Result(screeningData: widget.screeningData)));
                     },
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.all(10.0),
@@ -97,42 +111,55 @@ class PrecheckStateState extends State<PrecheckState> {
               ],
             )
         ),
+    )
     );
   }
 
   Future<bool> processDetection(ScreeningData screeningData) async {
     bool isDone = false;
 
+    setState(() {
+      isInAsyncCall = true;
+    });
+
     final http.Response response = await http.post(
       'https://cardiwatch-core-frontendapi.azurewebsites.net/api/screening/detect?uid='+ screeningData.userUid,
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        // 'id': counter,
+      body: jsonEncode({
         'uid': screeningData.userUid,
-        'intensity':  screeningData.intensity.toString(),
-        'symptomps':  screeningData.symptomps.toString(),
-        'array':  screeningData.sensorData.toString(),
+        'intensity':  screeningData.intensity,
+        'symptomps':  screeningData.symptomps,
+        'array':  screeningData.sensorData,
       }),
     );
 
+    print(response.statusCode);
+    print(response.body.toString());
+
     if (response.statusCode == 200) {
       debugPrint('RESJSON success');
-      ScreeningData result = ScreeningData.fromJson(jsonDecode(response.body));
+      ScreeningData result = new ScreeningData.fromJson(jsonDecode(response.body));
+      print('si redult + ' + result.bpm);
       setState(() {
-        result = result;
+        widget.screeningData = result;
       });
-    } else if (response.statusCode == 400){
-      debugPrint('RESJSON ' + response.toString());
     } else {
-      debugPrint('RESJSON fail ' +response.statusCode.toString());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Invalid()),
+      );
       throw Exception('Failed to load');
     }
 
     if(response!=null){
       isDone = true;
     }
+
+    setState(() {
+      isInAsyncCall = false;
+    });
     
     return isDone;
 

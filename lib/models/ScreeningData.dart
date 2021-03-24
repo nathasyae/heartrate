@@ -1,12 +1,14 @@
-import '../chart.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'ScreeningData.g.dart';
 
+@JsonSerializable(explicitToJson: true)
 class ScreeningData{
   String id, userUid, finalEvaluation, detailAnalysis, bmiStatus, consultText, preventionText, bpmLevel;
   bool isRythmNormal;
   List<String> symptomps, intensity;
   DateTime checkedDateTime;
   String bpm, weight, height, bmi;
-  List<SensorValue> sensorData; // send to API as list of string
+  String sensorData;
 
   ScreeningData({
     this.id,
@@ -28,26 +30,7 @@ class ScreeningData{
     this.bpmLevel,
   });
 
-  factory ScreeningData.fromJson(Map<String, dynamic> json) {
-    return ScreeningData(
-      id: json['id'],
-      bpm: json['bpm'],
-      finalEvaluation: json['finalEvaluation'],
-      isRythmNormal: json['isRythmNormal'],
-      symptomps: List<String>.from(json['symptomps']),
-      intensity: List<String>.from(json['intensity']),
-      userUid: json['userUid'],
-      checkedDateTime: json['checkedDateTime'],
-      detailAnalysis: json['detailAnalysis'],
-      weight: json['weight'].toString(),
-      height: json['height'].toString(),
-      bmi: json['bmi'].toString(),
-      bmiStatus: json['bmiStatus'],
-      consultText: json['consultText'],
-      preventionText: json['preventionText'],
-      bpmLevel: json['bpmLevel'],
-      sensorData: List<SensorValue>.from(json['sensorData']),
-    );
-  }
+  factory ScreeningData.fromJson(Map<String, dynamic> json) => _$ScreeningDataFromJson(json);
 
+  Map<String, dynamic> toJson() => _$ScreeningDataToJson(this);
 }

@@ -81,7 +81,8 @@ class ResultProVersionState extends State<ResultProVersion> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text("Heart Rythm", style: TextStyle(fontSize: 18)),
-                          Text(widget.screeningData.finalEvaluation, style: TextStyle(letterSpacing: 4.0), textAlign: TextAlign.center,),
+                          SizedBox(height: 15,),
+                          Text(widget.screeningData.finalEvaluation.toUpperCase(), style: TextStyle(letterSpacing: 1, fontSize: 18), textAlign: TextAlign.center,),
                         ],
                       ),
                     ),
@@ -103,7 +104,7 @@ class ResultProVersionState extends State<ResultProVersion> {
                 children: [
                   Text("Physical Condition and Status", style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("Weight  : " + widget.screeningData.weight.toString() + " kg"),
-                  Text("Height  : " + widget.screeningData.weight.toString() + " cm"),
+                  Text("Height  : " + widget.screeningData.height.toString() + " cm"),
                   Text("BMI       : " + widget.screeningData.weight.toString() + " ("+widget.screeningData.bmiStatus+")"),
                   SizedBox(height: 15),
                   Text("Analysis", style: TextStyle(fontWeight: FontWeight.bold)),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/models/ScreeningData.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 import 'package:heartrate/pages/detection/precheckstate.dart';
 
 class Symptomps extends StatefulWidget {
@@ -78,9 +77,11 @@ class SymptompsState extends State<Symptomps> {
                       child: Text("Next", style: TextStyle(fontSize: 16.0, color: Colors.white)),
                       onPressed: () {
                         widget.screeningData.symptomps = selectedSymptomps;
+                        print("symp");
+                        print(widget.screeningData.symptomps);
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Result(screeningData: widget.screeningData)));
+                            MaterialPageRoute(builder: (context) => PrecheckState(screeningData: widget.screeningData)));
                       },
                       style: TextButton.styleFrom(
                           padding: EdgeInsets.all(10.0),

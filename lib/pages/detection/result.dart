@@ -1,12 +1,7 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:heartrate/models/ScreeningData.dart';
 import 'package:heartrate/pages/detection/resultProVersion.dart';
-
-import '../../BottomNavPage.dart';
-import '../dailyroutines.dart';
 
 final Firestore _db = Firestore.instance;
 
@@ -48,8 +43,11 @@ class ResultView extends State<Result> {
 
   @override
   Widget build(BuildContext context) {
+    print('result ');
+    print(widget.screeningData.userUid);
     avgBPM = widget.screeningData.bpm.toString();
     heartCondition = widget.screeningData.finalEvaluation;
+    print(avgBPM + heartCondition);
 
     return Scaffold(
         body: SafeArea(
@@ -82,9 +80,9 @@ class ResultView extends State<Result> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ImageIcon(
-                        AssetImage("assets/img/heartbeat.png"),
+                        AssetImage("assets/images/heartbeat.png"),
                       ),
-                      Text(heartCondition,
+                      Text(widget.screeningData.finalEvaluation,
                           style: TextStyle(fontSize: 25)),
                     ],
                   ),
@@ -128,12 +126,13 @@ class ResultView extends State<Result> {
                       side: BorderSide(color: Colors.black),
                       // side: BorderSide(color: Colors.red)
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => BottomNavPage())
-                    );
-                    },
+                    onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/DailyRoutines')),
+                    // onPressed: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(builder: (context) => BottomNavPage())
+                    // );
+                    // },
                     child: Text(
                       "Back to Home",
                       style: TextStyle(fontSize: 16.0),
