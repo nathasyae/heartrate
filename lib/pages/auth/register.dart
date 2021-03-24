@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:heartrate/homePage.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'package:heartrate/pages/forms/personalInfo.dart';
 import 'login.dart';
@@ -17,6 +16,7 @@ class Register extends StatefulWidget {
 }
 class _RegisterState extends State<Register> {
   final _auth = FirebaseAuth.instance;
+  UserData userData;
   bool showProgress = false;
   String email, password;
   String errormsg ='';
@@ -98,13 +98,16 @@ class _RegisterState extends State<Register> {
                     await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
 
-                    postProfiletoDB(newuser.user.uid, email);
+                    bool isDone = await postProfiletoDB(newuser.user.uid, email);
+                    print(isDone);
+                    print('yg awal '+userData.email);
 
-                    if (newuser != null) {
+                    if ((newuser != null) & (isDone)) {
+                      print(userData.email);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PersonalInfo()),
+                            builder: (context) => PersonalInfo(userData: userData)),
                       );
                       setState(() {
                         showProgress = false;
@@ -171,12 +174,23 @@ class _RegisterState extends State<Register> {
       }),
     );
 
+    print(jsonDecode(response.body));
+
     if (response.statusCode == 200) {
-      debugPrint('RESJSON success');
+      print('RESJSON success');
+
+      UserData result = UserData.fromJson(jsonDecode(response.body));
+
+      setState(() {
+        userData = result;
+      });
+      print('register statuscode 200');
+      print(result.email);
+      print(result.uid);
     } else if (response.statusCode == 400){
-      debugPrint('RESJSON ' + response.toString());
+      print('RESJSON ' + jsonDecode(response.body));
     } else {
-      debugPrint('RESJSON fail ' +response.statusCode.toString());
+      print('RESJSON fail ' +response.statusCode.toString());
       throw Exception('Failed to load');
     }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/models/UserData.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 import 'activityLevel.dart';
 
@@ -84,6 +83,8 @@ class CvdHistoryState extends State<CvdHistory> {
                 ),
                 onPressed: () {
                   // widget.userData.healthConditions = selectedDisease;
+                  print('cvd');
+                  print(widget.userData.email + " " + widget.userData.uid);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ActivityLevel(userData: widget.userData)),

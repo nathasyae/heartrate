@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/models/UserData.dart';
 import 'package:heartrate/pages/forms/cvdHistory.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 class HealthHistory extends StatefulWidget {
   UserData userData;
@@ -87,6 +86,9 @@ class HealthHistoryState extends State<HealthHistory> {
                 ),
                 onPressed: () {
                   widget.userData.healthConditions = selectedConditions;
+
+                  print('health cond');
+                  print(widget.userData.email + " " + widget.userData.uid + " " + widget.userData.healthConditions.toString());
 
                   Navigator.push(
                     context,

@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:heartrate/models/UserData.dart';
+import 'package:heartrate/pages/auth/register.dart';
 import 'package:heartrate/pages/forms/personalInfo.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -110,14 +109,16 @@ class _LoginState extends State<Login> {
 
                       bool isDone = await checkIsSurveyFilled(useruid);
 
-                      if (userData.userCategory != null) {
+                      if (userData.isProfileComplete) {
                         setState(() {
                           showProgress = false;
                         });
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) =>
-                              BottomNavPage()),
+                          MaterialPageRoute(
+                              settings: RouteSettings(name: "/BottomNavPage"),
+                              builder: (context) =>
+                              BottomNavPage(uid: userData.uid)),
                         );
                       } else {
                         Navigator.pushReplacement(
@@ -129,10 +130,11 @@ class _LoginState extends State<Login> {
                     }
 
                   } catch (e) {
-                      setState(() {
-                        errormsg = 'Invalid email or password';
-                        showProgress = false;
-                    });
+                    print(e);
+                    setState(() {
+                      errormsg = 'Invalid email or password';
+                      showProgress = false;
+                  });
                   }
                 },
                 child: Text(
@@ -181,6 +183,8 @@ class _LoginState extends State<Login> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+
+    print(jsonDecode(response.body));
 
     if (response.statusCode == 200) {
       debugPrint('RESJSON success');

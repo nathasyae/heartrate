@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:heartrate/homePage.dart';
 import 'package:heartrate/models/UserData.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/detection/result.dart';
 
 import '../../BottomNavPage.dart';
 import 'package:http/http.dart' as http;
@@ -183,11 +181,11 @@ class ActivityLevelState extends State<ActivityLevel> {
 
                     // send to backend
                     bool isDone = await updateProfileDb(widget.userData);
-                    //
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => BottomNavPage()),
-                    // );
+
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => BottomNavPage(uid: widget.userData.uid)),
+                    );
                   },
                   child: Text(
                     "Finish Survey",
@@ -227,6 +225,8 @@ class ActivityLevelState extends State<ActivityLevel> {
         'Content-Type': 'application/json; charset=UTF-8',
       },
       body: jsonEncode({
+        'uid': userData.uid,
+        'email': userData.email,
         'weight': userData.weight,
         'height': userData.height,
         'gender': userData.gender,
@@ -235,7 +235,7 @@ class ActivityLevelState extends State<ActivityLevel> {
       }),
     );
 
-    print(jsonDecode(response.body).toString());
+    print('activity level get from azure ' + jsonDecode(response.body).toString());
 
     if (response.statusCode == 200) {
       print('RESJSON success');

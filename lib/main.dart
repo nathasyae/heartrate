@@ -1,30 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:heartrate/pages/auth/login.dart';
 import 'package:heartrate/pages/calendarScreen.dart';
-import 'package:heartrate/pages/chat/layout_chat.dart';
-import 'package:heartrate/pages/checkHeartRate.dart';
-import 'package:heartrate/pages/consultation.dart';
-import 'package:heartrate/pages/dailyroutines.dart';
-import 'package:heartrate/pages/forms/cvdHistory.dart';
-import 'package:heartrate/pages/forms/healthHistory.dart';
-import 'package:heartrate/pages/forms/activityLevel.dart';
-import 'package:heartrate/pages/forms/personalInfo.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/login.dart';
-import 'package:heartrate/pages/measuring.dart';
-import 'package:heartrate/pages/programs.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
-import 'package:heartrate/pages/result.dart';
-import 'package:flutter/material.dart';
-import 'package:heartrate/pages/resultProVersion.dart';
-import 'package:heartrate/pages/symptomps.dart';
-
-import 'BottomNavPage.dart';
-import 'homePage.dart';
-import 'models/User.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-import 'pages/dailyroutines.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,6 +8,14 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+//   FirebaseUser user = await FirebaseAuth.instance.currentUser();
+//   if(user != null){
+//   // navigate to home page
+//   }
+//   else
+//   {
+// // log in
+//   }
 
   // This widget is the root of your application.
   @override
@@ -62,7 +46,7 @@ class MyApp extends StatelessWidget {
 
       ),
       home: Login(),
-      // home: ResultProVersion(),
+      //   home: CalendarScreen(uid: "PNgY91Hm5RYRNk2Fcf2GqPm4QL82"),
 
       routes: {
         // '/DailyRoutines': (context) => DailyRoutines(),
