@@ -2,7 +2,6 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heartrate/components/appBar.dart';
 
 class AudioMaterial extends StatefulWidget {
   @override
@@ -71,7 +70,13 @@ class _AudioMaterialState extends State<AudioMaterial> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () {
+        _player.stop();
+        Navigator.pop(context);
+      },
+    child:
+      Scaffold(
       appBar: AppBar(
         title: Text("Audio Session",
         style: TextStyle(color: Colors.black)),
@@ -102,7 +107,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                               ),
 
                       Text(
-                        "Judul Podkes",
+                        "Cardiovascular Disease Fact",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 30.0,
@@ -121,20 +126,20 @@ class _AudioMaterialState extends State<AudioMaterial> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Chip(label: Text("Tips & trick", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
-                          Chip(label: Text("Food", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[400]),
-                          Chip(label: Text("Lifestyle", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
+                          Chip(label: Text("Tips & Trick", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
+                          Chip(label: Text("Facts", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
                         ],
                       ),
                       SizedBox(
                         height: 16.0,
                       ),
                       Text(
-                          "The description of this audio session will be placed here. It"
-                              " should be exactly one paragraph consisting of at least 3 "
-                              "sentences. The description will only explain the overviews "
-                              "and should acts like a “hook”, making people curious with s"
-                              "oft approach.",
+                        "Cardiovascular Disease (CVDs) is the number 1 cause of death globally."
+                            " Even though the efforts to prevent it are quite simple,"
+                            " most of the people still do not have any idea about what"
+                            " caused it and how to prevent it. In this episode, we asked"
+                            " dr. Zackie about facts related to CVDs, from the cases into the"
+                            " simple daily routines that helps us avoid getting CVDs.",
                       ),
                       SizedBox(height: 30),
 
@@ -201,7 +206,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                               //here we will add the functionality of the play button
                               if (!playing) {
                                 //now let's play the song
-                                cache.play("audio/dummy cardiwatch.mp3");
+                                cache.play("audio/podcast.mp3");
                                 setState(() {
                                   playBtn = Icons.pause;
                                   playing = true;
@@ -236,6 +241,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
             ),
           ),
         ),
-    );
+    )
+      ,);
   }
 }

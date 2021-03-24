@@ -1,16 +1,8 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:heartrate/components/button.dart';
 import 'package:heartrate/pages/dailyroutines.dart';
-import 'package:wakelock/wakelock.dart';
-// import 'chart.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:heartrate/style.dart';
-import 'package:flutter/material.dart';
+import 'package:heartrate/pages/materials/audioMaterial.dart';
 
 import 'materials/readingMaterial.dart';
 
@@ -27,25 +19,100 @@ class ResultView extends State<Programs> {
   Widget build(BuildContext context) {
     double cardTitleFontSize = 24;
     double sectionTitleFontSize = 22;
-    List<Widget> widgets = [
+    List<Widget> packagesWidgets = [
       Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/workout_card.png')),
+        margin: EdgeInsets.fromLTRB(0,0,5,0),
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: RouteSettings(name: "/DailyRoutines"),
+                  builder: (context) => DailyRoutines())
+          ),
+          child: Image(image: AssetImage('assets/images/packagesactive1.png')),
+        ),
       ),
-      SizedBox(width:10),
       Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/food_card.png')),
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: RouteSettings(name: "/DailyRoutines"),
+                  builder: (context) => DailyRoutines())
+          ),
+          child: Image(image: AssetImage('assets/images/packagesactive2.png')),
+        ),
       ),
-      SizedBox(width:10),
       Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/workout_card.png')),
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/packagesnon1.png')),
       ),
-      SizedBox(width:10),
       Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/food_card.png')),
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/packagesnon2.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/packagesnon3.png')),
+      ),
+    ];
+
+    List<Widget> audioWidgets = [
+      Container(
+        margin: EdgeInsets.fromLTRB(0,0,5,0),
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: RouteSettings(name: "/DailyRoutines"),
+                  builder: (context) => AudioMaterial())
+          ),
+          child: Image(image: AssetImage('assets/images/audioactive.png')),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+          child: Image(image: AssetImage('assets/images/audionon3.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/audionon1.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/audionon2.png')),
+      ),
+    ];
+
+    List<Widget> exerciseWidgets = [
+      Container(
+        margin: EdgeInsets.fromLTRB(0,0,5,0),
+        child: GestureDetector(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  settings: RouteSettings(name: "/DailyRoutines"),
+                  builder: (context) => DailyRoutines())
+          ),
+          child: Image(image: AssetImage('assets/images/exerciseactive.png')),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/exercisenon1.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/exercisenon2.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/exercisenon3.png')),
+      ),
+      Container(
+        margin: EdgeInsets.fromLTRB(5,0,5,0),
+        child: Image(image: AssetImage('assets/images/exercisenon4.png')),
       ),
     ];
 
@@ -55,12 +122,11 @@ class ResultView extends State<Programs> {
             Expanded(
               child: SizedBox(
                 child: new ListView(
-                  scrollDirection: Axis.vertical, // =================================== ROOT COLUMN BEGINS=====<<<
+                  scrollDirection: Axis.vertical,
                   children: <Widget>[
                     SizedBox(height: 50),
 
-                    // ============ #1 CARD BEGINS
-
+                    // DAILY ROUTINES
                     Container(
                       margin: EdgeInsets.all(15),
                       child: GestureDetector(
@@ -74,6 +140,7 @@ class ResultView extends State<Programs> {
                       ),
                     ),
 
+                    // BROWSE ALL PACKAGES
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       alignment: Alignment.centerLeft,
@@ -88,36 +155,105 @@ class ResultView extends State<Programs> {
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       alignment: Alignment.centerLeft,
-                      child: Row( //<<<<<============ #2 CARD ROW BEGINS HERE
+                      child: Row(
                         children: <Widget>[
                           Expanded(
                             child: SizedBox(
                               height: 200.0,
                               child: new ListView(
                                 scrollDirection: Axis.horizontal,
-                                children: widgets,
+                                children: packagesWidgets,
                               )
                             )
                           )
-                          // ======= #2-1st COL BEGINS=====
-
                         ],
-                      ), //<<<<<============ #2 CARD ROW ENDS HERE
+                      ),
                     ),
 
-                    // <<<===================#3 ARTICLES SECTION BEGINS HERE
+                    // BROWSE ALL EXERCISE MATERIALS
                     Container(
                       margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Articles",
+                        "Browse All Exercise",
                         style: TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: sectionTitleFontSize,
                         ),
                       ),
                     ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: SizedBox(
+                                  height: 200.0,
+                                  child: new ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: exerciseWidgets,
+                                  )
+                              )
+                          )
+                        ],
+                      ),
+                    ),
 
+                    // BROWSE ALL AUDIO MATERIALS
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Browse All Audio Materials",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: sectionTitleFontSize,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: SizedBox(
+                                  height: 200.0,
+                                  child: new ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: audioWidgets,
+                                  )
+                              )
+                          )
+                        ],
+                      ),
+                    ),
+
+                    // BROWSE ALL READING MATERIALS
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Browse All Reading Materials",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: sectionTitleFontSize,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: GestureDetector(
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                settings: RouteSettings(name: "/DailyRoutines"),
+                                builder: (context) => ReadingMaterial())
+                        ),
+                        child: Image(image: AssetImage('assets/images/article_card.png')),
+                      ),
+                    ),
                     Container(
                       margin: EdgeInsets.all(15),
                       child: GestureDetector(

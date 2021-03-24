@@ -1,17 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:heartrate/models/Doctor.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
-import 'package:intl/intl.dart';
-
-import '../auth.dart';
-import 'auth/login.dart';
 
 class Consultation extends StatefulWidget {
   @override

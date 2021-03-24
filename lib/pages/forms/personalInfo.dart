@@ -31,6 +31,7 @@ class PersonalInfoState extends State<PersonalInfo> {
 
   @override
   Widget build(BuildContext context) {
+    print("profile page" + widget.userData.uid);
 
     return new Scaffold(
       body: ListView(
@@ -146,6 +147,9 @@ class PersonalInfoState extends State<PersonalInfo> {
                         widget.userData.gender = gender;
                         widget.userData.weight = kg;
                         widget.userData.height = cm;
+
+                        print('pinfo');
+                        print(widget.userData.email + " " + widget.userData.uid + " ");
 
                         Navigator.push(
                           context,
