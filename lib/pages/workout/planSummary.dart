@@ -11,43 +11,85 @@ class PlanSummary extends StatefulWidget {
 }
 
 class _PlanSummaryState extends State<PlanSummary> {
+
+
+  List<bool> isDone = [
+    false, false, false, false
+  ];
+
+  Future navigateToDetailPage(context, SubPage) async {
+    List<bool> result = await Navigator.push(context, MaterialPageRoute(builder: (context) => SubPage));
+    setState(() {
+      isDone = result;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double cardTitleFontSize = 24;
     double sectionTitleFontSize = 22;
+
+    List<String> cards = [
+    'assets/images/card1.png',
+    'assets/images/card2.png',
+    'assets/images/card3.png',
+    'assets/images/card4.png',
+    ];
+
+    List<String> thumbnail = [
+      'assets/images/thumb1.png',
+      'assets/images/thumb2.png',
+      'assets/images/thumb3.png',
+      'assets/images/thumb4.png'
+    ];
+
     List<String> actionListName = [
-      "Jumping Jack",
-      "Wall Sit",
-      "Push Up",
-      "Abdominal Crunch"
+      "Push up (2 rep)",
+      "Jogging (2 mins)",
+      "Lunges (3 rep)",
+      "Jumping jacks (2 rep)"
     ];
-    List<Widget> widgets = [
-      Container(
-        // margin: EdgeInsets.all(15),
-        child: GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ActionDetail())
-          ),
-          child: Image(image: AssetImage('assets/images/videocard.png')),
-        ),
-      ),
-      SizedBox(width: 10),
-      Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/videocard.png')),
-      ),
-      SizedBox(width: 10),
-      Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/videocard.png')),
-      ),
-      SizedBox(width: 10),
-      Container(
-        // margin: EdgeInsets.all(15),
-        child: Image(image: AssetImage('assets/images/videocard.png')),
-      ),
+
+    List<String> urls = [
+      "https://storageaccountdefaua0cf.blob.core.windows.net/cardiwatch-content/workout-videos/running.mp4",
+      "https://storageaccountdefaua0cf.blob.core.windows.net/cardiwatch-content/workout-videos/Jumpingjack.mp4",
+      "https://storageaccountdefaua0cf.blob.core.windows.net/cardiwatch-content/workout-videos/running.mp4",
+      "https://storageaccountdefaua0cf.blob.core.windows.net/cardiwatch-content/workout-videos/Jumpingjack.mp4",
     ];
+
+    List<String> pressUpItems = [
+      "Tighten your abs, glutes, and thighs.",
+    "Lower yourself down so that your chest touches the floor.",
+    "Push back up, then bring one knee towards the opposite hand.",
+    "Lower back down into a push up, then repeat on the opposite side.",
+    "Repeat 12 times."
+    ];
+
+    List<String> jumpingItems = [
+      "Start stand up with arms position by your sides.",
+      "Engage the core slightly and set the shoulders, then get ready for movement.",
+      "Keep arms and legs straight without making it stiff out,  concurrently jump the legs out to the sides and raise the arms to shoulder height.",
+      "Stabilize your body",
+      "Return to starting position and repeat it with controlled pace."
+    ];
+
+    List<String> joggingItems = [
+      "Walk with slightly fast pace",
+      "Keep the pace",
+      "Maintain your breathing and keep it up"
+    ];
+
+    List<String> lungesItems = [
+      "standup straight with your arms at your sides and your feet about five-six inces apart",
+      "step forward with your right leg, lowering your body until both knees are bent at a 90-degree angle",
+      "Keep your back straight and your chin up",
+      "Your abs should be pulled in",
+      "Use your hamstrings and glutes to push yourself back up to the original position",
+    ];
+
+    List<List> items = [ pressUpItems, joggingItems, lungesItems, jumpingItems ];
+
+
 
     return Scaffold(
         appBar: AppBar(
@@ -107,15 +149,27 @@ class _PlanSummaryState extends State<PlanSummary> {
                         Expanded(
                             child: SizedBox(
                                 height: 200.0,
-                                child: new ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: widgets,
+                                child: new ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: actionListName.length,
+                                    itemBuilder: (BuildContext context, int index) =>
+                                        Container(
+                                          margin: EdgeInsets.fromLTRB(0,0,5,0),
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              navigateToDetailPage(context,
+                                                  ActionDetail(index: index, isDone: isDone, url: urls[index], items: items[index]));
+                                            },
+                                            child: Image(image: AssetImage(cards[index])),
+                                          ),
+                                        ),
+                                )
                                 )
                             )
+                          ],
                         ),
-                      ]
-                  )
-              ),
+                  ),
 
               // Action List
               Container(
@@ -130,18 +184,18 @@ class _PlanSummaryState extends State<PlanSummary> {
                 ),
               ),
 
-              ListTile(
-                leading: Image.asset('assets/images/thumbnailworkout.png'),
-                title: Text('Push Up (5x)'),
-                trailing: Icon(Icons.check),
-              ),
-              ListTile(
-                leading: Image.asset('assets/images/thumbnailworkout.png'),
-                title: Text('Jumping Jacks (10x)'),
-              ),
-              ListTile(
-                leading: Image.asset('assets/images/thumbnailworkout.png'),
-                title: Text('Mountain Climber (5x)'),
+
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: actionListName.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    ListTile(
+                      leading: Image.asset(thumbnail[index]),
+                      title: Text(actionListName[index]),
+                      trailing: (isDone[index]) ? Icon(Icons.check) : null,
+                    ),
+
               ),
 
             ]

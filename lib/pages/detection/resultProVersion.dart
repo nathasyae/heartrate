@@ -105,7 +105,7 @@ class ResultProVersionState extends State<ResultProVersion> {
                   Text("Physical Condition and Status", style: TextStyle(fontWeight: FontWeight.bold)),
                   Text("Weight  : " + widget.screeningData.weight.toString() + " kg"),
                   Text("Height  : " + widget.screeningData.height.toString() + " cm"),
-                  Text("BMI       : " + widget.screeningData.weight.toString() + " ("+widget.screeningData.bmiStatus+")"),
+                  Text("BMI       : " + widget.screeningData.bmi.toString() + " ("+widget.screeningData.bmiStatus+")"),
                   SizedBox(height: 15),
                   Text("Analysis", style: TextStyle(fontWeight: FontWeight.bold)),
                   Text(widget.screeningData.detailAnalysis),

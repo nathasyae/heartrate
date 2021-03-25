@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:heartrate/pages/auth/login.dart';
 import 'package:heartrate/pages/calendarScreen.dart';
+import 'package:heartrate/pages/profile.dart';
+import 'package:heartrate/pages/workout/planSummary.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,8 +48,6 @@ class MyApp extends StatelessWidget {
 
       ),
       home: Login(),
-      //   home: CalendarScreen(uid: "PNgY91Hm5RYRNk2Fcf2GqPm4QL82"),
-
       routes: {
         // '/DailyRoutines': (context) => DailyRoutines(),
 

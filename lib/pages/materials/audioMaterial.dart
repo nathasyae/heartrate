@@ -1,7 +1,10 @@
+import 'dart:ui';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AudioMaterial extends StatefulWidget {
   @override
@@ -104,13 +107,13 @@ class _AudioMaterialState extends State<AudioMaterial> {
                       //Let's add the music cover
                       Expanded(
                             child: Image.asset("assets/images/coverpodkes.png"),
-                              ),
-
+                      ),
+                      SizedBox(height: 10),
                       Text(
                         "Cardiovascular Disease Fact",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 30.0,
+                          fontSize: 24.0,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -118,15 +121,16 @@ class _AudioMaterialState extends State<AudioMaterial> {
                         "with dr. Zackie",
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 24.0,
+                          fontSize: 20.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Chip(label: Text("Tips & Trick", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
+                          SizedBox(width: 10),
                           Chip(label: Text("Facts", style: TextStyle(fontSize: 14), textAlign: TextAlign.left), backgroundColor: Colors.grey[300]),
                         ],
                       ),
@@ -140,8 +144,9 @@ class _AudioMaterialState extends State<AudioMaterial> {
                             " caused it and how to prevent it. In this episode, we asked"
                             " dr. Zackie about facts related to CVDs, from the cases into the"
                             " simple daily routines that helps us avoid getting CVDs.",
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
 
                     ],
                   ),
@@ -233,7 +238,7 @@ class _AudioMaterialState extends State<AudioMaterial> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
                     ],
                   ),
                 ),

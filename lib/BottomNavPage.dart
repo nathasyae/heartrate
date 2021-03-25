@@ -4,6 +4,7 @@ import 'package:heartrate/models/ScreeningData.dart';
 import 'package:heartrate/pages/calendarScreen.dart';
 import 'package:heartrate/pages/checkHeartRate.dart';
 import 'package:heartrate/pages/consultation.dart';
+import 'package:heartrate/pages/detection/symptomps.dart';
 import 'package:heartrate/pages/profile.dart';
 import 'package:heartrate/pages/programs.dart';
 
@@ -33,7 +34,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
 
   @override
   Widget build(BuildContext context) {
-    screeningData = new ScreeningData(userUid: "PNgY91Hm5RYRNk2Fcf2GqPm4QL82", sensorData: dummy);
+    screeningData = new ScreeningData(userUid: "GVDVxeeoBONRjaQYpNAdZK524Bq1", sensorData: dummy);
 
     final _listPage = <Widget>[
       CalendarScreen(uid: widget.uid),

@@ -16,7 +16,7 @@
 //       bpm: json['bpm'],
 //       timeOfDay: json['timeOfDay'],
 //       isDone: json['isDone'] as bool,
-//       isRhythmNormal: json['isRythmNormal'] as bool,
+//       isRhythmNormal: json['isRhythmNormal'] as bool,
 //       dateTime: DateTime.parse(json['dateTime']),
 //     );
 //   }

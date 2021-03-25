@@ -8,8 +8,10 @@ class UserData{
   String profilId;
 
   String uid, gender, email, userCategory, intensityLevel;
-  @JsonKey(fromJson: _doubleToString, toJson: _stringToDouble)
+
+  @JsonKey(fromJson: _intToString, toJson: _stringToInt)
   String weight, height;
+
   List<String> healthConditions;
   bool isProfileComplete;
 
@@ -23,8 +25,8 @@ class UserData{
 
   Map<String, dynamic> toJson() => _$UserDataToJson(this);
 
-  static String _doubleToString(double number) => number == null ? null : number.toString();
+  static String _intToString(int number) => number == null ? null : number.toString();
 
-  static double _stringToDouble(String number) => double.parse(number?.toString());
+  static int _stringToInt(String number) => int.parse(number?.toString());
 
 }

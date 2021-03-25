@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'file:///C:/Users/tasya/Desktop/heartrate/lib/pages/auth/register.dart';
+import 'package:heartrate/models/ScreeningData.dart';
 import 'package:intl/intl.dart';
-
-import '../auth.dart';
-import 'auth/login.dart';
+import 'package:http/http.dart' as http;
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class Profile extends StatefulWidget {
+  String uid;
+
+  Profile({this.uid});
+
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -22,6 +26,9 @@ class _ProfileState extends State<Profile> {
   String email = 'Loading..';
   String uid;
   String msg='';
+  bool isAsyncCall = false;
+
+  List records;
 
   @override
   void initState() {
@@ -33,7 +40,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
-      body: SingleChildScrollView(
+      body: (records==null) ? Center(child: CircularProgressIndicator()) :
+      SingleChildScrollView(
         child: Padding(
         padding: EdgeInsets.only(bottom: bottom),
         child: Container(
@@ -87,58 +95,42 @@ class _ProfileState extends State<Profile> {
                 ),
                 SizedBox(height:10),
                 Text(msg),
-                isLoading ?
-                    new CircularProgressIndicator() :
-                StreamBuilder(
-                  stream: Firestore.instance.collection("log").where('uiduser', isEqualTo: uid).snapshots(),
-                  builder: (context, snapshot){
-                    if(!snapshot.hasData){
-                      return CircularProgressIndicator();
-                    } else{
-                      List<DocumentSnapshot> items = snapshot.data.documents;
-                      return new ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data.documents.length,
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot ds = snapshot.data.documents[index];
+                (records!=[]) ?
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: records.length,
+                  itemBuilder: (context, index) {
 
-                          retrievedDateTime = ds["dateTime"].toDate();
-                          var formatter = new DateFormat('dd-MM-yyyy hh:mm');
-                          stringDateTime = formatter.format(retrievedDateTime);
-
-                          print('retrieved ' + retrievedDateTime.toString());
-
-                          print('datetime ' + ds['dateTime'].toString());
-                          return new Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Row(
-                                  children: [
-                                    Column(
+                    return new Card(
+                        child: Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                      Text(ds["heartCondition"]),
-                                      Text(stringDateTime, style: TextStyle(fontSize: 14.0)),
-                                    ]),
-                                    SizedBox(width: 20),
-                                    Row(
+                                        Text(records[index].finalEvaluation ?? "Not complete"),
+                                        Text(DateFormat('dd-MM-yyyy hh:mm').format(records[index].checkedDateTime)
+                                            , style: TextStyle(fontSize: 14.0)),
+                                      ]),
+                                  SizedBox(width: 20),
+                                  Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Icon(Icons.favorite, size:10, color: Colors.red),
-                                        Text(ds["avgBPM"].toInt().toString(),
-                                            style: TextStyle(fontSize: 24.0)),
+                                        Text(records[index].bpm.toString(), style: TextStyle(fontSize: 24.0)),
                                         Text(" BPM",
                                             style: TextStyle(fontSize: 16.0))
                                       ]
-                                    ),
+                                  ),
                                 ]
-                              )
                             )
-                          );
-                        }
-                      );
-                    }
+                        )
+                    );
                   }
-                )
+              ) :
+                Text("Belum ada data.")
               ],
             )
           ),
@@ -153,11 +145,31 @@ class _ProfileState extends State<Profile> {
   }
 
   void getData() async {
-    FirebaseUser user = await auth.currentUser();
+    print("welcome to get data " + widget.uid);
+
+    var response = await http.get(
+        Uri.encodeFull("https://cardiwatch-core-frontendapi.azurewebsites.net/api/screening/user-uid/"+widget.uid),
+        headers: {
+          "Accept": "application/json"
+        }
+    );
+
+    List result = List<ScreeningData>.from(jsonDecode(response.body).map((x)=> ScreeningData.fromJson(x)));
+
     setState(() {
-      uid = user.uid;
-      email = user.email;
-      isLoading = false;
+      records = result;
     });
+
+    if (response.statusCode == 200) {
+      print('RESJSON success');
+    } else if (response.statusCode == 400){
+      print('RESJSON ' + response.toString());
+    } else {
+      print('RESJSON fail ' +response.statusCode.toString());
+      throw Exception('Failed to load');
+    }
+
   }
+
+
 }

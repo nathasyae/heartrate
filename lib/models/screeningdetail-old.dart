@@ -4,7 +4,7 @@
 //
 // class ScreeningData{
 //   String id, userUid, finalEvaluation, detailAnalysis, bmiStatus, consultText, preventionText, bpmLevel;
-//   bool isRythmNormal;
+//   bool isRhythmNormal;
 //   List<String> symptomps, intensity;
 //   DateTime checkedDateTime;
 //   String bpm, weight, height, bmi;
@@ -14,7 +14,7 @@
 //     this.id,
 //     this.bpm,
 //     this.finalEvaluation,
-//     this.isRythmNormal,
+//     this.isRhythmNormal,
 //     this.symptomps,
 //     this.intensity,
 //     this.userUid,
@@ -35,7 +35,7 @@
 //       id: json['id'],
 //       bpm: json['bpm'].toStringAsFixed(0),
 //       finalEvaluation: json['finalEvaluation'],
-//       isRythmNormal: json['isRythmNormal'],
+//       isRhythmNormal: json['isRhythmNormal'],
 //       symptomps: (json['symptomps']!=null) ? List<String>.from(json['symptomps']) : [],
 //       intensity: (json['intensity']!=null) ? List<String>.from(json['intensity']) : [],
 //       userUid: json['userUid'],

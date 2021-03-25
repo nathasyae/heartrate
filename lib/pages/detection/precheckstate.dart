@@ -144,6 +144,7 @@ class PrecheckStateState extends State<PrecheckState> {
       print('si redult + ' + result.bpm);
       setState(() {
         widget.screeningData = result;
+        isInAsyncCall = false;
       });
     } else {
       Navigator.push(
@@ -156,10 +157,6 @@ class PrecheckStateState extends State<PrecheckState> {
     if(response!=null){
       isDone = true;
     }
-
-    setState(() {
-      isInAsyncCall = false;
-    });
     
     return isDone;
 

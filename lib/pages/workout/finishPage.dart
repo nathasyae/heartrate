@@ -42,7 +42,7 @@ class _FinishPageState extends State<FinishPage> {
               SizedBox(height: 10,),
               TextButton(
                 child: Text("Back to Daily Routines", style: TextStyle(fontSize: 16.0)),
-                onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/BottomNavPage')),
+                onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/DailyRoutines')),
                 style: TextButton.styleFrom(
                     padding: EdgeInsets.all(10.0),
                     primary: Colors.white,

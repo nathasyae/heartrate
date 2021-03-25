@@ -11,8 +11,8 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) {
     uid: json['uid'] as String,
     gender: json['gender'] as String,
     email: json['email'] as String,
-    weight: UserData._doubleToString(json['weight'] as double),
-    height: UserData._doubleToString(json['height'] as double),
+    weight: UserData._intToString(json['weight'] as int),
+    height: UserData._intToString(json['height'] as int),
     userCategory: json['userCategory'] as String,
     healthConditions:
         (json['healthConditions'] as List)?.map((e) => e as String)?.toList(),
@@ -29,8 +29,8 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'email': instance.email,
       'userCategory': instance.userCategory,
       'intensityLevel': instance.intensityLevel,
-      'weight': UserData._stringToDouble(instance.weight),
-      'height': UserData._stringToDouble(instance.height),
+      'weight': UserData._stringToInt(instance.weight),
+      'height': UserData._stringToInt(instance.height),
       'healthConditions': instance.healthConditions,
       'isProfileComplete': instance.isProfileComplete,
     };

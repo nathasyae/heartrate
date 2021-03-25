@@ -39,7 +39,7 @@ class ResultView extends State<DailyRoutines> {
           Expanded(
             child: SizedBox(
               child: new ListView(
-                scrollDirection: Axis.vertical, // =================================== ROOT COLUMN BEGINS=====<<<
+                scrollDirection: Axis.vertical,
                 children: <Widget>[
 
                   SizedBox(height: 20),
